@@ -37,13 +37,13 @@
                 <li class="menu-title">Menu</li>
 
                 <li>
-                    <a href="" class="waves-effect {{ request()->is('dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('dashboard') }}" class="waves-effect {{ request()->is('dashboard') ? 'active' : '' }}">
                         <i class="uim uim-airplay"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
 
-                <li>
+                {{-- <li>
                     <a href=""
                         class="waves-effect {{ request()->is('kurir*') ? 'active' : '' }}">
                         <i class="uim uim-layer-group"></i>
@@ -57,7 +57,7 @@
                         <i class="uim uim-document-layout-left"></i>
                         <span>Rekap</span>
                     </a>
-                </li>
+                </li> --}}
 
                 <li>
                     <a href="{{ route('kriteria.index') }}"
@@ -66,7 +66,7 @@
                         <span>Kriteria</span>
                     </a>
                 </li>
-
+{{--
                 <li>
                     <a href=""
                         class="waves-effect {{ request()->is('topsis*') ? 'active' : '' }}">
@@ -81,7 +81,7 @@
                         <i class="uim uim-lock-access"></i>
                         <span>Management Account</span>
                     </a>
-                </li>
+                </li> --}}
 
             </ul>
 

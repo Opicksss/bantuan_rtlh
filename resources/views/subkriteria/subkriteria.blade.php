@@ -16,7 +16,7 @@
                                     <a href="{{ route('kriteria.index') }}" class="text-decoration-none">
                                         Kriteria
                                     </a> > Sub Kriteria
-                                    
+
                                 </h5>
 
                                 <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
@@ -29,8 +29,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>nama</th>
-                                        <th>min</th>
-                                        <th>max</th>
+                                        <th>keterangan</th>
                                         <th>bobot</th>
                                         <th class="no-export">Action</th>
                                     </tr>
@@ -41,8 +40,7 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->nama }}</td>
-                                            <td>{{ $item->min_value }}</td>
-                                            <td>{{ $item->max_value }}</td>
+                                            <td>{{ $item->keterangan }}</td>
                                             <td>{{ (float) $item->bobot * 1 == (int) $item->bobot ? (int) $item->bobot : rtrim(rtrim(number_format($item->bobot, 2, '.', ''), '0'), '.') }}%
                                             </td>
 
@@ -62,7 +60,8 @@
                                         </tr>
                                         <!-- modal update -->
                                         <div id="update{{ $item->id }}" class="modal fade" tabindex="-1" role="dialog"
-                                            aria-labelledby="update{{ $item->id }}Label" aria-hidden="true">
+                                            aria-labelledby="update{{ $item->id }}Label" aria-hidden="true"
+                                            data-bs-backdrop="static" data-bs-keyboard="false">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -84,21 +83,12 @@
                                                                     value="{{ $item->nama }}" />
 
                                                             </div>
-
                                                             <div class="mb-3">
-                                                                <label>Min</label>
-                                                                <input type="text" class="form-control" name="min_value"
-                                                                    required placeholder="Masukkan Bobot"
-                                                                    value="{{ $item->min_value }}" />
+                                                                <label>Keterangan</label>
+                                                                <input type="text" class="form-control" name="keterangan"
+                                                                    required placeholder="Masukkan Keterangan"
+                                                                    value="{{ $item->keterangan }}" />
                                                             </div>
-
-                                                            <div class="mb-3">
-                                                                <label>Max</label>
-                                                                <input type="text" class="form-control" name="max_value"
-                                                                    required placeholder="Masukkan Bobot"
-                                                                    value="{{ $item->max_value }}" />
-                                                            </div>
-
                                                             <div class="mb-3">
                                                                 <label>Bobot</label>
                                                                 <input type="text" class="form-control" name="bobot"
@@ -185,7 +175,7 @@
     <!-- sample modal content -->
 
     <div id="create" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createLabel"
-        aria-hidden="true">
+        aria-hidden="true"data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -200,19 +190,11 @@
                             <input type="text" class="form-control" name="nama" required
                                 placeholder="Masukkan Nama" />
                         </div>
-
                         <div class="mb-3">
-                            <label>Min Value</label>
-                            <input type="text" class="form-control" name="min_value" required
-                                placeholder="Masukkan Min Value" />
+                            <label>Keterangan</label>
+                            <input type="text" class="form-control" name="keterangan" required
+                                placeholder="Masukkan Keterangan" />
                         </div>
-
-                        <div class="mb-3">
-                            <label>max Value</label>
-                            <input type="text" class="form-control" name="max_value" required
-                                placeholder="Masukkan Max " />
-                        </div>
-
                         <div class="mb-3">
                             <label>Bobot</label>
                             <input type="text" class="form-control" name="bobot" required
