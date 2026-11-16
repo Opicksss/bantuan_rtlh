@@ -10,7 +10,7 @@ use App\Models\SubKriteria;
 
 class DashboardController extends Controller
 {
-    public function dashboard()
+    public function dashboard1()
     {
         // $kriteria = Kriteria::all();
         // $subKriteria = SubKriteria::all();
@@ -43,13 +43,19 @@ class DashboardController extends Controller
         // $rekapHariIni = Rekap::where('date', $today)->distinct('kurir_id')->pluck('kurir_id');
         // $sisaRekapHariIni = $totalKurir - $rekapHariIni->count();
 
-        return view('dashboard.dashboard',
+        return view('dashboard.dashboard1',
         // compact(
         //     'kriteria', 'subKriteria', 'kurir', 'rekap',
         //     'totalKriteria', 'totalKurir', 'totalRekap', 'totalSubKriteria',
         //     'terbaik', 'sisaRekapHariIni'
         // )
         );
+    }
+
+
+    public function dashboard2()
+    {
+        return view('dashboard.dashboard2');
     }
 
 

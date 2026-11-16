@@ -37,7 +37,7 @@
                 <li class="menu-title">Menu</li>
 
                 <li>
-                    <a href="{{ route('dashboard') }}" class="waves-effect {{ request()->is('dashboard') ? 'active' : '' }}">
+                    <a href="" class="waves-effect {{ request()->is('dashboard') ? 'active' : '' }}">
                         <i class="uim uim-airplay"></i>
                         <span>Dashboard</span>
                     </a>

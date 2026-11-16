@@ -88,7 +88,7 @@
                                         class="mdi mdi-account-circle text-muted font-size-16 align-middle me-1"></i> <span
                                         class="align-middle">Profile</span></a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-danger" href=""><i
+                                 <a class="dropdown-item text-danger" href="{{ route('logout') }}"><i
                                         class="mdi mdi-logout text-danger font-size-16 align-middle me-1"></i> <span
                                         class="align-middle text-danger">Logout</span></a>
                             </div>
