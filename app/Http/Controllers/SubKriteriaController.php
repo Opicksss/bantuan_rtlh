@@ -21,8 +21,7 @@ class SubKriteriaController extends Controller
             $validated = $request->validate([
                 'kriteria_id' => 'required|exists:kriterias,id',
                 'nama' => 'required|string|max:255',
-                'min_value' => 'nullable|integer',
-                'max_value' => 'nullable|integer',
+                'keterangan' => 'nullable|string',
                 'bobot' => 'required|integer|min:1|max:100',
             ]);
 
@@ -45,8 +44,7 @@ class SubKriteriaController extends Controller
             $validated = $request->validate([
                 // 'kriteria_id' => 'required|exists:kriterias,id',
                 'nama' => 'required|string|max:255',
-                'min_value' => 'nullable|integer',
-                'max_value' => 'nullable|integer',
+                'keterangan' => 'nullable|string',
                 'bobot' => 'required|integer|min:1|max:100',
             ]);
 

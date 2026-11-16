@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class SubKriteria extends Model
 {
-    //
+    protected $fillable = ['kriteria_id', 'nama', 'keterangan', 'bobot'];
+
+    public function kriteria()
+    {
+        return $this->belongsTo(Kriteria::class);
+    }
 }

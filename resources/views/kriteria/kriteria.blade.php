@@ -57,7 +57,8 @@
                                         </tr>
                                         <!-- modal update -->
                                         <div id="update{{ $item->id }}" class="modal fade" tabindex="-1" role="dialog"
-                                            aria-labelledby="update{{ $item->id }}Label" aria-hidden="true">
+                                            aria-labelledby="update{{ $item->id }}Label" aria-hidden="true"
+                                            data-bs-backdrop="static" data-bs-keyboard="false">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -83,7 +84,8 @@
                                                                 <label>Bobot</label>
                                                                 <input type="number" class="form-control" name="bobot"
                                                                     required placeholder="Masukkan Bobot"
-                                                                    value="{{ $item->bobot }}" step="0.01" min="0" />
+                                                                    value="{{ $item->bobot }}" step="0.01"
+                                                                    min="0" />
                                                             </div>
 
                                                             <div class="mb-3">
@@ -176,7 +178,8 @@
 
 
     <!-- sample modal content -->
-    <div id="create" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createLabel" aria-hidden="true">
+    <div id="create" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createLabel"
+        aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
