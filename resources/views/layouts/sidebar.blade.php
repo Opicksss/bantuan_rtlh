@@ -43,11 +43,11 @@
                     </a>
                 </li>
 
-                {{-- <li>
-                    <a href=""
-                        class="waves-effect {{ request()->is('kurir*') ? 'active' : '' }}">
+                <li>
+                    <a href="{{ route('alternatif.index') }}"
+                        class="waves-effect {{ request()->is('alternatif*') ? 'active' : '' }}">
                         <i class="uim uim-layer-group"></i>
-                        <span>Kurir</span>
+                        <span>Warga</span>
                     </a>
                 </li>
 
@@ -57,7 +57,7 @@
                         <i class="uim uim-document-layout-left"></i>
                         <span>Rekap</span>
                     </a>
-                </li> --}}
+                </li>
 
                 <li>
                     <a href="{{ route('kriteria.index') }}"
