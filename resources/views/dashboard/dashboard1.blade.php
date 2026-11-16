@@ -7,7 +7,8 @@
 @section('content')
     <div class="page-content">
         <div class="container-fluid">
-            {{-- <div class="row">
+            <h1>dashboard 1</h1>
+            <!-- {{-- <div class="row">
                 <div class="col-xl-4 col-md-6">
                     <div class="card">
                         <div class="card-body">
@@ -110,11 +111,11 @@
                     </div>
                 </div>
 
-            </div> --}}
+            </div> -->
             <!-- END ROW -->
-            <h1>Hello word</h1>
+            <h1>Hello word 1 admin</h1>
 
-            {{-- <div class="row mb-4">
+            <!-- {{-- <div class="row mb-4">
                 <div class="col-xl-7">
                     <div class="card">
                         <div class="card-header border-0 align-items-center d-flex pb-0">
@@ -180,7 +181,7 @@
                         </div>
                     </div>
                 </div>
-            </div> --}}
+            </div> --}} -->
             <!-- END ROW -->
 
         </div> <!-- container-fluid -->
