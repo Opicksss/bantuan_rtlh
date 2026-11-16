@@ -28,10 +28,10 @@ public function index()
     {
         try {
             $validated = $request->validate([
+                'NIK' => 'required|string|max:255',
                 'name' => 'required|string|max:255',
                 'alamat' => 'nullable|string|max:255',
                 'nomor' => 'nullable|numeric|digits_between:10,20',
-                'tanggal_masuk' => 'required|date',
             ]);
 
             $lastNumber = Alternatif::count() + 1;
@@ -60,9 +60,9 @@ public function index()
         try {
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
+                'NIK' => 'required|string|max:255',
                 'alamat' => 'nullable|string|max:255',
                 'nomor' => 'nullable|numeric|digits_between:10,20',
-                'tanggal_masuk' => 'required|date',
             ]);
 
             $oldTanggalMasuk = $alternatif->tanggal_masuk;

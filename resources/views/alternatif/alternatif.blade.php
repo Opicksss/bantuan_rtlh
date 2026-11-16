@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('title')
-    Kurir
+    alternatif
 @endsection
 
 @section('content')
@@ -12,7 +12,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h5 class="m-0">Management Kurir</h5>
+                                <h5 class="m-0">Management Warga</h5>
 
                                 <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
                                     data-bs-target="#create">Create</button>
@@ -24,25 +24,30 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Kode</th>
-                                        <th>Id Kurir</th>
+                                        <th>NIK</th>
                                         <th>Nama</th>
                                         <th>Alamat</th>
                                         <th>Nomor Hp</th>
-                                        <th>Tanggal Masuk</th>
+                                        <th>Status</th>
                                         <th class="no-export">Action</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                    @foreach ($kurirs as $item)
+                                    @foreach ($alternatifs as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->kode }}</td>
-                                            <td>{{ $item->kurir_id }}</td>
+                                            <td>{{ $item->NIK }}</td>
                                             <td>{{ $item->name }}</td>
                                             <td>{{ $item->alamat }}</td>
                                             <td>{{ $item->nomor }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($item->tanggal_masuk)->format('d F Y') }}</td>
+                                            <td>
+                                                @if ($item->status === 'Verifikasi')
+                                                    <span class="badge bg-success">Aktif</span>
+                                                @else
+                                                    <span class="badge bg-danger">Non-Aktif</span>
+                                                @endif
                                             <td>
 
                                                 <div class="d-flex gap-2">
@@ -69,9 +74,15 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <form class="custom-validation"
-                                                            action="{{ route('kurir.update', $item->id) }}" method="POST">
+                                                            action="{{ route('alternatif.update', $item->id) }}" method="POST">
                                                             @csrf
                                                             @method('PUT')
+                                                            <div class="mb-3">
+                                                                <label>NIK</label>
+                                                                <input type="text" class="form-control" name="NIK"
+                                                                    required placeholder="Masukkan NIK"
+                                                                    value="{{ $item->NIK }}" />
+                                                            </div>
                                                             <div class="mb-3">
                                                                 <label>Name</label>
                                                                 <input type="text" class="form-control" name="name"
@@ -90,15 +101,6 @@
                                                                 <input type="tel" class="form-control" name="nomor"
                                                                     required placeholder="Masukkan Nomor Hp"
                                                                     value="{{ $item->nomor }}" />
-                                                            </div>
-
-
-                                                            <div class="mb-3">
-                                                                <label>Tanggal Masuk</label>
-                                                                <input type="date" class="form-control"
-                                                                    name="tanggal_masuk" required
-                                                                    placeholder="Masukkan tanggal"
-                                                                    value="{{ $item->tanggal_masuk }}" />
                                                             </div>
 
                                                             <div class="mb-0">
@@ -135,7 +137,7 @@
                                                     <!-- Modal Body -->
                                                     <div class="modal-body text-center">
                                                         <p class="mb-4">
-                                                            Apakah Anda yakin ingin menghapus Kurir
+                                                            Apakah Anda yakin ingin menghapus Data Warga dengan nama
                                                             <strong style="font-size: 1rem;">{{ ucwords($item->name) }}
                                                                 ?</strong>
                                                             Tindakan ini tidak dapat dibatalkan.
@@ -151,7 +153,7 @@
                                                         <button type="button" class="btn btn-outline-secondary"
                                                             data-bs-dismiss="modal">Close
                                                         </button>
-                                                        <form action="{{ route('kurir.destroy', $item->id) }}"
+                                                        <form action="{{ route('alternatif.destroy', $item->id) }}"
                                                             method="POST" style="display: inline;">
                                                             @csrf
                                                             @method('DELETE')
@@ -187,8 +189,13 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="custom-validation" action="{{ route('kurir.store') }}" method="POST">
+                    <form class="custom-validation" action="{{ route('alternatif.store') }}" method="POST">
                         @csrf
+                        <div class="mb-3">
+                            <label>NIK</label>
+                            <input type="text" class="form-control" name="NIK" required
+                                placeholder="Masukkan NIK" />
+                        </div>
                         <div class="mb-3">
                             <label>Nama</label>
                             <input type="text" class="form-control" name="name" required
@@ -206,14 +213,6 @@
                             <input type="text" class="form-control" name="nomor" required
                                 placeholder="Masukkan Nomor Hp" />
                         </div>
-
-                        <div class="mb-3">
-                            <label>Tanggal Masuk</label>
-                            <input type="date" class="form-control" name="tanggal_masuk" required
-                                placeholder="Masukkan tanggal" />
-                        </div>
-
-
                         <div class="mb-0">
                             <div class="d-flex justify-content-end">
                                 <button type="submit" class="btn btn-primary waves-effect waves-light me-1">
