@@ -60,7 +60,7 @@
                 </li>
 
                 <li>
-                    <a href=""
+                    <a href="{{ route('kriteria.index') }}"
                         class="waves-effect {{ request()->is('kriteria*') ? 'active' : '' }}">
                         <i class="uim uim-layers-alt"></i>
                         <span>Kriteria</span>
