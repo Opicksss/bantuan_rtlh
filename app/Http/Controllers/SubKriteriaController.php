@@ -2,64 +2,75 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kriteria;
 use App\Models\SubKriteria;
 use Illuminate\Http\Request;
 
 class SubKriteriaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index($id)
     {
-        //
+        $subKriteria = SubKriteria::where('kriteria_id', $id)->orderBy('created_at', 'asc')->get();
+        $kriteria = Kriteria::findOrFail($id);
+        return view('subKriteria.subKriteria', compact('subKriteria', 'kriteria'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        try {
+            $validated = $request->validate([
+                'kriteria_id' => 'required|exists:kriterias,id',
+                'nama' => 'required|string|max:255',
+                'min_value' => 'nullable|integer',
+                'max_value' => 'nullable|integer',
+                'bobot' => 'required|integer|min:1|max:100',
+            ]);
+
+            SubKriteria::create($validated);
+
+            return redirect()->back()->with('success', 'Sub Kriteria created successfully.');
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->with('error', 'Terjadi kesalahan saat menambahkan Sub Kriteria. Silakan coba lagi.: ' . $e->getMessage());
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(SubKriteria $subKriteria)
+    public function update(Request $request, $id)
     {
-        //
+        try {
+            $subKriteria = SubKriteria::findOrFail($id);
+
+            // Validasi dasar
+            $validated = $request->validate([
+                // 'kriteria_id' => 'required|exists:kriterias,id',
+                'nama' => 'required|string|max:255',
+                'min_value' => 'nullable|integer',
+                'max_value' => 'nullable|integer',
+                'bobot' => 'required|integer|min:1|max:100',
+            ]);
+
+            $subKriteria->update($validated);
+
+            return redirect()->back()->with('success', 'Sub Kriteria berhasil diperbarui.');
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->with('error', 'Terjadi kesalahan saat memperbarui Sub Kriteria. Silakan coba lagi.' . $e->getMessage());
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(SubKriteria $subKriteria)
+    public function destroy($id)
     {
-        //
-    }
+        try {
+            $subKriteria = SubKriteria::findOrFail($id);
+            $subKriteria->delete();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, SubKriteria $subKriteria)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(SubKriteria $subKriteria)
-    {
-        //
+            return redirect()->back()->with('success', 'Sub Kriteria berhasil dihapus.');
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->with('error', 'Terjadi kesalahan saat menghapus Sub Kriteria. Silakan coba lagi.' . $e->getMessage());
+        }
     }
 }
