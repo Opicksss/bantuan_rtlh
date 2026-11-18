@@ -16,6 +16,11 @@ return new class extends Migration
             $table->foreignId('kriteria_id')->constrained('kriterias')->cascadeOnDelete();
             $table->foreignId('alternatif_id')->constrained('alternatifs')->cascadeOnDelete();
             $table->integer('nilai')->nullable();
+            $table->string('bukti')->nullable();
+            $table->unique(
+                ['alternatif_id', 'kriteria_id'],
+                'penilaian_alternatif_kriteria_unique'
+            );
             $table->date('date');
             $table->timestamps();
         });

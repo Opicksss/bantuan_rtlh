@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('alternatifs', function (Blueprint $table) {
             $table->id();
-             $table->string('kode')->unique();
-             $table->string('NIK')->unique();
+            $table->string('kode')->unique();
+            $table->string('NIK')->unique();
             $table->string('name');
             $table->string('alamat')->nullable();
             $table->string('nomor')->nullable();
