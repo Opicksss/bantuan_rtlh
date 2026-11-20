@@ -37,33 +37,23 @@
                 <li class="menu-title">Menu</li>
 
                 <li>
-                    <a href="" class="waves-effect {{ request()->is('dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('dashboard1') }}" class="waves-effect {{ request()->is('dashboard1') ? 'active' : '' }}">
                         <i class="uim uim-airplay"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
-
+                <li>
+                    <a href="{{ route('kriteria.index') }}"
+                        class="waves-effect {{ request()->routeIs('kriteria.*', 'subKriteria.*') ? 'active' : '' }}">
+                        <i class="uim uim-layers-alt"></i>
+                        <span>Kriteria</span>
+                    </a>
+                </li>
                 <li>
                     <a href="{{ route('alternatif.index') }}"
                         class="waves-effect {{ request()->is('alternatif*') ? 'active' : '' }}">
                         <i class="uim uim-layer-group"></i>
                         <span>Warga</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href=""
-                        class="waves-effect {{ request()->is('rekap*') ? 'active' : '' }}">
-                        <i class="uim uim-document-layout-left"></i>
-                        <span>Rekap</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{{ route('kriteria.index') }}"
-                        class="waves-effect {{ request()->is('kriteria*') ? 'active' : '' }}">
-                        <i class="uim uim-layers-alt"></i>
-                        <span>Kriteria</span>
                     </a>
                 </li>
 {{--

@@ -24,7 +24,7 @@ class KriteriaController extends Controller
             ]);
 
             $lastNumber = Kriteria::count() + 1;
-            $validated['kode'] = 'C' . $lastNumber;
+            $validated['kode'] = 'K' . $lastNumber;
 
             Kriteria::create($validated);
 
@@ -63,8 +63,8 @@ class KriteriaController extends Controller
         try {
             $kriteria = Kriteria::findOrFail($id);
 
-            // Ambil nomor dari kode (prefix 'C')
-            $deletedNumber = (int) str_replace('C', '', $kriteria->kode);
+            // Ambil nomor dari kode (prefix 'K')
+            $deletedNumber = (int) str_replace('K', '', $kriteria->kode);
 
             // Hapus data
             $kriteria->delete();
@@ -76,9 +76,9 @@ class KriteriaController extends Controller
 
             // Update ulang kode-kode setelahnya
             foreach ($updateKode as $item) {
-                $currentNumber = (int) str_replace('C', '', $item->kode);
+                $currentNumber = (int) str_replace('K', '', $item->kode);
                 $newNumber = $currentNumber - 1;
-                $item->update(['kode' => 'C' . $newNumber]);
+                $item->update(['kode' => 'K' . $newNumber]);
             }
 
             return redirect()->back()->with('success', 'Kriteria berhasil dihapus.');

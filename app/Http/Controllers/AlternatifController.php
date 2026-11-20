@@ -35,7 +35,7 @@ public function index()
             ]);
 
             $lastNumber = Alternatif::count() + 1;
-            $validated['kode'] = 'ALT' . $lastNumber;
+            $validated['kode'] = 'A' . $lastNumber;
 
             Alternatif::create($validated);
             return redirect()->back()->with('success', 'Alternatif berhasil di tambahkan');
@@ -80,7 +80,7 @@ public function index()
     public function destroy(Alternatif $alternatif)
     {
         try {
-            $deletedNumber = (int) str_replace('ALT', '', $alternatif->kode);
+            $deletedNumber = (int) str_replace('A', '', $alternatif->kode);
 
             // Hapus data
             $alternatif->delete();
@@ -92,9 +92,9 @@ public function index()
 
             // Update ulang kode-kode setelahnya
             foreach ($updateKode as $item) {
-                $currentNumber = (int) str_replace('ALT', '', $item->kode);
+                $currentNumber = (int) str_replace('A', '', $item->kode);
                 $newNumber = $currentNumber - 1;
-                $item->update(['kode' => 'ALT' . $newNumber]);
+                $item->update(['kode' => 'A' . $newNumber]);
             }
 
             return redirect()->back()->with('success', 'Alternatif berhasil dihapus.');

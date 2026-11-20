@@ -6,7 +6,7 @@ use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\SubKriteriaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\PenilaianController;
 
 Route::middleware(['guest'])->group(function () {
     Route::get('login', [AuthController::class, 'login'])->name('login');
@@ -17,6 +17,7 @@ Route::middleware(['guest'])->group(function () {
     Route::post('verify-code-proses', [AuthController::class, 'verify_code_proses'])->name('verify-code-proses');
     Route::get('reset-password', [AuthController::class, 'reset_password'])->name('reset-password');
     Route::post('reset-password-proses', [AuthController::class, 'reset_password_proses'])->name('reset-password-proses');
+
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -26,7 +27,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('kriteria', KriteriaController::class);
 
-    Route::get('SubKriteri-{id}', [SubKriteriaController::class, 'index'])->name('subKriteria.index');
+    Route::get('SubKriteria-{id}', [SubKriteriaController::class, 'index'])->name('subKriteria.index');
     Route::post('SubKriteria/', [SubKriteriaController::class, 'store'])->name('subKriteria.store');
     Route::put('SubKriteria-{id}', [SubKriteriaController::class, 'update'])->name('subKriteria.update');
     Route::delete('SubKriteria-{id}', [SubKriteriaController::class, 'destroy'])->name('subKriteria.destroy');
@@ -35,4 +36,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('alternatif/store', [AlternatifController::class, 'store'])->name('alternatif.store');
     Route::put('alternatif/{alternatif}', [AlternatifController::class, 'update'])->name('alternatif.update');
     Route::delete('alternatif/{alternatif}', [AlternatifController::class, 'destroy'])->name('alternatif.destroy');
+
+    Route::get('Unggah_Berkas-{id}', [PenilaianController::class, 'index'])->name('penilaian.index');
+    Route::post('Unggah_Berkas/{id}', [PenilaianController::class, 'store'])->name('penilaian.store');
+    Route::put('Unggah_Berkas-{id}', [PenilaianController::class, 'update'])->name('penilaian.update');
+    Route::delete('Unggah_Berkas-{id}', [PenilaianController::class, 'destroy'])->name('penilaian.destroy');
+
 });
