@@ -36,14 +36,13 @@
                     </span></button>
                 <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base">
-                        <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="{{ route('home') }}">Home</a>
-                        </li>
-                        <li class="nav-item px-2"><a class="nav-link" href="#services">Services</a></li>
-                        <li class="nav-item px-2"><a class="nav-link" href="#ranking">Ranking</a></li>
-                        <li class="nav-item px-2"><a class="nav-link" href="#findUs">Contact</a></li>
+                        <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="{{ route('home') }}">Home</a></li>
+                        <li class="nav-item px-2"><a class="nav-link" href="{{ route('home') }}#alur">Alur</a></li>
+                        <li class="nav-item px-2"><a class="nav-link" href="{{ route('home') }}#ranking">Peringkat</a></li>
+                        <li class="nav-item px-2"><a class="nav-link" href="{{ route('home') }}#kontak">Kontak</a></li>
                     </ul>
-                    </div><a class="btn btn-primary order-1 order-lg-0 ms-lg-3" href="{{ route('login') }}">Log In</a>
                 </div>
+                <a class="btn btn-primary order-1 order-lg-0 ms-lg-3" href="{{ route('login') }}">Log In</a>
             </div>
         </nav>
 
