@@ -1,13 +1,15 @@
 <?php
 
 use App\Http\Controllers\AlternatifController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HasilSawController;
 use App\Http\Controllers\KriteriaController;
+use App\Http\Controllers\ManagementAkunController;
+use App\Http\Controllers\PenilaianController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubKriteriaController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\HasilSawController;
-use App\Http\Controllers\PenilaianController;
 
 Route::middleware(['guest'])->group(function () {
     Route::get('login', [AuthController::class, 'login'])->name('login');
@@ -22,8 +24,7 @@ Route::middleware(['guest'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('dashboard', [DashboardController::class, 'dashboard1'])->name('dashboard1');
-    Route::get('dashboard2', [DashboardController::class, 'dashboard2'])->name('dashboard2');
+    Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
     Route::resource('kriteria', KriteriaController::class);
 
@@ -45,9 +46,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/hasil-saw', [HasilSawController::class, 'simpan'])->name('hasil-saw.simpan');
     Route::delete('/hasil-saw', [HasilSawController::class, 'destroy'])->name('hasil-saw.destroy');
 
-    Route::get('management-akun-admin', [App\Http\Controllers\ManagementAkunController::class, 'admin'])->name('management-akun.admin');
-    Route::get('management-akun-verifikator', [App\Http\Controllers\ManagementAkunController::class, 'verifikator'])->name('management-akun.verifikator');
-    Route::post('management-akun-store', [App\Http\Controllers\ManagementAkunController::class, 'store'])->name('management-akun.store');
-    Route::put('management-akun-update/{id}', [App\Http\Controllers\ManagementAkunController::class, 'update'])->name('management-akun.update');
-    Route::delete('management-akun-destroy/{id}', [App\Http\Controllers\ManagementAkunController::class, 'destroy'])->name('management-akun.destroy');
+    Route::get('management-akun-admin', [ManagementAkunController::class, 'admin'])->name('management-akun.admin');
+    Route::get('management-akun-verifikator', [ManagementAkunController::class, 'verifikator'])->name('management-akun.verifikator');
+    Route::post('management-akun-store', [ManagementAkunController::class, 'store'])->name('management-akun.store');
+    Route::put('management-akun-update/{id}', [ManagementAkunController::class, 'update'])->name('management-akun.update');
+    Route::delete('management-akun-destroy/{id}', [ManagementAkunController::class, 'destroy'])->name('management-akun.destroy');
+
+    Route::get('profile-{id}', [ProfileController::class, 'profile'])->name('profile');
+    Route::post('profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
+    Route::post('profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
 });
