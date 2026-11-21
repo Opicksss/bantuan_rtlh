@@ -9,52 +9,37 @@ class AlternatifSeeder extends Seeder
 {
     public function run(): void
     {
-        $data = [
-            [
-                'kode' => 'A1',
-                'NIK' => '9999999999990001',
-                'name' => 'Suhaini',
-                'alamat' => 'Dusun Barat, Desa Contoh, Sumenep',
-                'nomor' => '081234567801',
-                'status' => 'Pending',
-            ],
-            [
-                'kode' => 'A2',
-                'NIK' => '9999999999990002',
-                'name' => 'Hariani',
-                'alamat' => 'Dusun Timur, Desa Contoh, Sumenep',
-                'nomor' => '081234567802',
-                'status' => 'Pending',
-            ],
-            [
-                'kode' => 'A3',
-                'NIK' => '9999999999990003',
-                'name' => 'Samsuri',
-                'alamat' => 'Dusun Selatan, Desa Contoh, Sumenep',
-                'nomor' => '081234567803',
-                'status' => 'Pending',
-            ],
-            [
-                'kode' => 'A4',
-                'NIK' => '9999999999990004',
-                'name' => 'Miatun',
-                'alamat' => 'Dusun Utara, Desa Contoh, Sumenep',
-                'nomor' => '081234567804',
-                'status' => 'Pending',
-            ],
-            [
-                'kode' => 'A5',
-                'NIK' => '9999999999990005',
-                'name' => 'Santoso',
-                'alamat' => 'Dusun Tengah, Desa Contoh, Sumenep',
-                'nomor' => '081234567805',
-                'status' => 'Pending',
-            ],
+        // Urutan dan kode disamakan dengan Tabel 3.4 Nilai Alternatif
+        $nama = [
+            'A1'  => 'Suhaini',
+            'A2'  => 'Suratun',
+            'A3'  => 'Suyono',
+            'A4'  => 'Hariani',
+            'A5'  => 'Santoso',
+            'A6'  => 'Miatun',
+            'A7'  => 'Samsuri',
+            'A8'  => 'Rukmaniyah',
+            'A9'  => 'Rukaiyah',
+            'A10' => 'Slamet',
         ];
 
-        foreach ($data as $item) {
+        $dusun = ['Barat', 'Timur', 'Selatan', 'Utara', 'Tengah'];
+
+        $i = 0;
+        foreach ($nama as $kode => $name) {
+            $i++;
+
+            $item = [
+                'kode'   => $kode,
+                'NIK'    => '99999999999900' . str_pad($i, 2, '0', STR_PAD_LEFT),
+                'name'   => $name,
+                'alamat' => 'Dusun ' . $dusun[($i - 1) % count($dusun)] . ', Desa Contoh, Sumenep',
+                'nomor'  => '0812345678' . str_pad($i, 2, '0', STR_PAD_LEFT),
+                'status' => 'Pending',
+            ];
+
             DB::table('alternatifs')->updateOrInsert(
-                ['kode' => $item['kode']],
+                ['kode' => $kode],
                 array_merge($item, [
                     'created_at' => now(),
                     'updated_at' => now(),

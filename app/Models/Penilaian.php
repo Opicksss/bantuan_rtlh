@@ -11,7 +11,7 @@ class Penilaian extends Model
     protected $fillable = [
         'alternatif_id',
         'kriteria_id',
-        'sub_kriteria_id',
+        'sub_`dkriteria_id',
         'nilai',
         'bukti',
         'date',

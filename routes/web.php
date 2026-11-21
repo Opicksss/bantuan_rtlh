@@ -6,6 +6,7 @@ use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\SubKriteriaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HasilSawController;
 use App\Http\Controllers\PenilaianController;
 
 Route::middleware(['guest'])->group(function () {
@@ -17,7 +18,6 @@ Route::middleware(['guest'])->group(function () {
     Route::post('verify-code-proses', [AuthController::class, 'verify_code_proses'])->name('verify-code-proses');
     Route::get('reset-password', [AuthController::class, 'reset_password'])->name('reset-password');
     Route::post('reset-password-proses', [AuthController::class, 'reset_password_proses'])->name('reset-password-proses');
-
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -41,4 +41,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('Unggah_Berkas/{id}', [PenilaianController::class, 'store'])->name('penilaian.store');
     Route::delete('Unggah_Berkas-{id}', [PenilaianController::class, 'destroy'])->name('penilaian.destroy');
 
+    Route::get('/hasil-saw', [HasilSawController::class, 'index'])->name('hasil-saw.index');
+    Route::post('/hasil-saw', [HasilSawController::class, 'simpan'])->name('hasil-saw.simpan');
+    Route::delete('/hasil-saw', [HasilSawController::class, 'destroy'])->name('hasil-saw.destroy');
+
+    Route::get('management-akun-admin', [App\Http\Controllers\ManagementAkunController::class, 'admin'])->name('management-akun.admin');
+    Route::get('management-akun-verifikator', [App\Http\Controllers\ManagementAkunController::class, 'verifikator'])->name('management-akun.verifikator');
+    Route::post('management-akun-store', [App\Http\Controllers\ManagementAkunController::class, 'store'])->name('management-akun.store');
+    Route::put('management-akun-update/{id}', [App\Http\Controllers\ManagementAkunController::class, 'update'])->name('management-akun.update');
+    Route::delete('management-akun-destroy/{id}', [App\Http\Controllers\ManagementAkunController::class, 'destroy'])->name('management-akun.destroy');
 });

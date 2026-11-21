@@ -26,13 +26,7 @@ class PenilaianController extends Controller
         return view('alternatif.penilaian', compact('penilaian', 'alternatif', 'kriteria'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -139,37 +133,10 @@ class PenilaianController extends Controller
 
             report($e);
 
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan penilaian. Silakan coba lagi.');
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan penilaian. Silakan coba lagi. error: ' . $e->getMessage());
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Penilaian $penilaian)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Penilaian $penilaian)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Penilaian $penilaian)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
 
     public function destroy($id)
     {
@@ -186,8 +153,8 @@ class PenilaianController extends Controller
             }
 
             Alternatif::whereKey($id)->update([
-                    'status' => 'Pending',
-                ]);
+                'status' => 'Pending',
+            ]);
 
             return redirect()->back()->with('success', 'Seluruh penilaian dan berkas berhasil dihapus.');
         } catch (\Exception $e) {

@@ -56,7 +56,14 @@
                         <span>Warga</span>
                     </a>
                 </li>
-{{--
+                <li>
+                    <a href="{{route('hasil-saw.index')}}"
+                        class="waves-effect {{ request()->is('hasil-saw*') ? 'active' : '' }}">
+                        <i class="uim uim-layer-group"></i>
+                        <span>SAW</span>
+                    </a>
+                </li>
+
                 <li>
                     <a href=""
                         class="waves-effect {{ request()->is('topsis*') ? 'active' : '' }}">
@@ -66,12 +73,19 @@
                 </li>
 
                 <li>
-                    <a href=""
+                    <a href="{{ route('management-akun.admin') }}"
                         class="waves-effect {{ request()->is('admin*') ? 'active' : '' }}">
                         <i class="uim uim-lock-access"></i>
-                        <span>Management Account</span>
+                        <span>Management Admin</span>
                     </a>
-                </li> --}}
+                </li>
+                <li>
+                    <a href="{{ route('management-akun.verifikator') }}"
+                        class="waves-effect {{ request()->is('verifikator*') ? 'active' : '' }}">
+                        <i class="uim uim-lock-access"></i>
+                        <span>Management Verifikator</span>
+                    </a>
+                </li>
 
             </ul>
 

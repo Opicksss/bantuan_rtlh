@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Alternatif extends Model
 {
-        protected $table = 'alternatifs';
+    protected $table = 'alternatifs';
 
-    protected $fillable = ['kode','NIK', 'name', 'alamat', 'nomor'];
+    protected $fillable = ['kode', 'NIK', 'name', 'alamat', 'nomor', 'status'];
 
     protected $guarded = ['id'];
 
@@ -34,4 +34,10 @@ class Alternatif extends Model
     //         ]);
     //     });
     // }
+
+
+    public function penilaians()
+    {
+        return $this->hasMany(Penilaian::class);
+    }
 }
