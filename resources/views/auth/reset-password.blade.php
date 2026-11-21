@@ -19,7 +19,7 @@
                     <div>
                         <div class="text-center mt-1">
                             <h4 class="font-size-18">Reset Password</h4>
-                            <p class="text-muted">Reset your password to Tocly.</p>
+                            <p class="text-muted">Reset your password to SI-LAYAK.</p>
                         </div>
 
                         @if (session('error'))

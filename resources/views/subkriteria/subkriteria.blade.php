@@ -130,6 +130,7 @@
 
                                                     <!-- Modal Body -->
                                                     <div class="modal-body text-center">
+                                                        <i class="ri-error-warning-line text-danger" style="font-size: 60px;"></i>
                                                         <p class="mb-4">
                                                             Apakah Anda yakin ingin menghapus Sub kriteria
                                                             <strong style="font-size: 1rem;">{{ ucwords($item->nama) }}

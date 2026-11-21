@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('alamat')->nullable();
             $table->string('nomor')->nullable();
-            $table->enum('status', ['Verifikasi', 'Pending'])->default('Pending');
+            $table->enum('status', ['Terverifikasi', 'Pending'])->default('Pending');
             $table->timestamps();
         });
     }

@@ -19,7 +19,7 @@
                     <div>
                         <div class="text-center mt-1">
                             <h4 class="font-size-18">Verify Code</h4>
-                            <p class="text-muted">Verify your code to Tocly.</p>
+                            <p class="text-muted">Verify your code to SI-LAYAK.</p>
                         </div>
 
                         @if (session('error'))

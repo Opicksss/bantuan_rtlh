@@ -62,7 +62,7 @@
                                     <p class="mb-0">©
                                         <script>
                                             document.write(new Date().getFullYear())
-                                        </script> CEODE. Crafted with <i
+                                        </script> SI-LAYAK. Crafted with <i
                                             class="mdi mdi-heart text-danger"></i> by D&O Coders
                                     </p>
                                 </div>

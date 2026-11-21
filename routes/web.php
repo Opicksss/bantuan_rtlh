@@ -39,7 +39,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('Unggah_Berkas-{id}', [PenilaianController::class, 'index'])->name('penilaian.index');
     Route::post('Unggah_Berkas/{id}', [PenilaianController::class, 'store'])->name('penilaian.store');
-    Route::put('Unggah_Berkas-{id}', [PenilaianController::class, 'update'])->name('penilaian.update');
     Route::delete('Unggah_Berkas-{id}', [PenilaianController::class, 'destroy'])->name('penilaian.destroy');
 
 });

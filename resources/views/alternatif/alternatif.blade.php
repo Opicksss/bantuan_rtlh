@@ -43,11 +43,12 @@
                                             <td>{{ $item->alamat }}</td>
                                             <td>{{ $item->nomor }}</td>
                                             <td>
-                                                @if ($item->status === 'Verifikasi')
-                                                    <span class="badge bg-success">Verifikasi</span>
+                                                @if ($item->status === 'Terverifikasi')
+                                                    <span class="badge bg-success">Terverifikasi</span>
                                                 @else
                                                     <span class="badge bg-danger">Pending</span>
                                                 @endif
+                                            </td>
                                             <td>
                                                 <div class="d-flex gap-2">
                                                     <button type="button" class="btn btn-outline-warning btn-sm"
@@ -136,6 +137,7 @@
 
                                                     <!-- Modal Body -->
                                                     <div class="modal-body text-center">
+                                                        <i class="ri-error-warning-line text-danger" style="font-size: 60px;"></i>
                                                         <p class="mb-4">
                                                             Apakah Anda yakin ingin menghapus Data Warga dengan nama
                                                             <strong style="font-size: 1rem;">{{ ucwords($item->name) }}

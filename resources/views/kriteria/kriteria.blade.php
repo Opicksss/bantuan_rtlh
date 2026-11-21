@@ -46,11 +46,11 @@
                                                     <button type="button" class="btn btn-outline-warning btn-sm"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#update{{ $item->id }}">Update</button>
+                                                    <a href="{{ route('subKriteria.index', $item->id) }}"
+                                                        class="btn btn-outline-info btn-sm">Sub Kriteria</a>
                                                     <button type="button" class="btn btn-outline-danger btn-sm"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#delete{{ $item->id }}">Delete</button>
-                                                    <a href="{{ route('subKriteria.index', $item->id) }}"
-                                                        class="btn btn-outline-info btn-sm">Sub Kriteria</a>
                                                 </div>
 
                                             </td>
@@ -135,6 +135,8 @@
 
                                                     <!-- Modal Body -->
                                                     <div class="modal-body text-center">
+                                                        <i class="ri-error-warning-line text-danger"
+                                                            style="font-size: 60px;"></i>
                                                         <p class="mb-4">
                                                             Apakah Anda yakin ingin menghapus kriteria
                                                             <strong style="font-size: 1rem;">{{ ucwords($item->nama) }}

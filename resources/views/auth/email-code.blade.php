@@ -22,7 +22,7 @@
             <div class="code">{{ $code }}</div>
             <p>If you did not request this, please ignore this email.</p>
             <p>Thank you,</p>
-            <p>Party Bakar Rumah</p>
+            <p>SI-LAYAK</p>
         </div>
     </div>
 </body>
