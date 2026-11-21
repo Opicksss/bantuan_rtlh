@@ -10,9 +10,6 @@ use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubKriteriaController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\HasilSawController;
-use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\HomeController;
 
 
