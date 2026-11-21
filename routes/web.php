@@ -10,7 +10,13 @@ use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubKriteriaController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HasilSawController;
+use App\Http\Controllers\PenilaianController;
+use App\Http\Controllers\HomeController;
 
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::middleware(['guest'])->group(function () {
     Route::get('login', [AuthController::class, 'login'])->name('login');
     Route::post('login-proses', [AuthController::class, 'login_proses'])->name('login-proses');
