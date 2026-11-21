@@ -75,16 +75,16 @@
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img class="rounded-circle header-profile-user" src="{{ asset('img/profilDefault.jpg') }}"
                                     alt="Header Avatar" height="36" width="36">
-                                {{-- <span class="d-none d-xl-inline-block ms-1 fw-semibold">
+                                <span class="d-none d-xl-inline-block ms-1 fw-semibold">
                                     @auth
                                         {{ Auth::user()->name }}
                                     @endauth
-                                </span> --}}
+                                </span>
                                 <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <!-- item-->
-                                <a class="dropdown-item" href="}"><i
+                                <a class="dropdown-item" href="{{ route('profile', ['id' => auth()->id()]) }}"><i
                                         class="mdi mdi-account-circle text-muted font-size-16 align-middle me-1"></i> <span
                                         class="align-middle">Profile</span></a>
                                 <div class="dropdown-divider"></div>

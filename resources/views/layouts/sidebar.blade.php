@@ -37,7 +37,8 @@
                 <li class="menu-title">Menu</li>
 
                 <li>
-                    <a href="{{ route('dashboard1') }}" class="waves-effect {{ request()->is('dashboard1') ? 'active' : '' }}">
+                    <a href="{{ route('dashboard') }}"
+                        class="waves-effect {{ request()->is('dashboard') ? 'active' : '' }}">
                         <i class="uim uim-airplay"></i>
                         <span>Dashboard</span>
                     </a>
@@ -57,36 +58,29 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{route('hasil-saw.index')}}"
+                    <a href="{{ route('hasil-saw.index') }}"
                         class="waves-effect {{ request()->is('hasil-saw*') ? 'active' : '' }}">
-                        <i class="uim uim-layer-group"></i>
-                        <span>SAW</span>
+                        <i class="uim uim-horizontal-align-left"></i>
+                        <span>Perhitungan SAW</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href=""
-                        class="waves-effect {{ request()->is('topsis*') ? 'active' : '' }}">
+                    <a href="" class="waves-effect {{ request()->is('topsis*') ? 'active' : '' }}">
                         <i class="uim uim-graph-bar"></i>
                         <span>Perankingan</span>
                     </a>
                 </li>
-
                 <li>
-                    <a href="{{ route('management-akun.admin') }}"
-                        class="waves-effect {{ request()->is('admin*') ? 'active' : '' }}">
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="uim uim-lock-access"></i>
-                        <span>Management Admin</span>
+                        <span>Management Akun</span>
                     </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('management-akun.admin') }}">Admin</a></li>
+                        <li><a href="{{ route('management-akun.verifikator') }}">Verifikator</a></li>
+                    </ul>
                 </li>
-                <li>
-                    <a href="{{ route('management-akun.verifikator') }}"
-                        class="waves-effect {{ request()->is('verifikator*') ? 'active' : '' }}">
-                        <i class="uim uim-lock-access"></i>
-                        <span>Management Verifikator</span>
-                    </a>
-                </li>
-
             </ul>
 
         </div>
