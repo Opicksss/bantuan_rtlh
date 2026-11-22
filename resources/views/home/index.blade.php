@@ -17,10 +17,10 @@
                     <h1 class="fw-normal fs-6 fs-xxl-7">Informasi Penerima Bantuan</h1>
                     <h1 class="fw-bolder fs-6 fs-xxl-7 mb-2">Transparan &amp; Terbuka</h1>
                     <p class="fs-1 mb-5">
-                        Warga dapat melihat peringkat calon penerima bantuan setiap tahun tanpa perlu login.
-                        Peringkat dihitung dari penilaian kriteria yang sama untuk semua warga.
+                        Warga dapat melihat daftar penerima bantuan setiap tahun tanpa perlu login.
+                        Penerima ditentukan dari peringkat nilai penilaian kriteria yang sama untuk semua warga.
                     </p>
-                    <a class="btn btn-primary px-5" href="#ranking">Lihat Peringkat</a>
+                    <a class="btn btn-primary px-5" href="#ranking">Lihat Penerima</a>
                 </div>
             </div>
         </div>
@@ -32,7 +32,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-8 col-lg-6 text-center mb-3">
                     <h5 class="text-danger">ALUR PENILAIAN</h5>
-                    <h2>Bagaimana peringkat ditentukan?</h2>
+                    <h2>Bagaimana penerima ditentukan?</h2>
                 </div>
             </div>
             <div class="row h-100 justify-content-center">
@@ -47,8 +47,8 @@
                             'isi' => 'Setiap warga dinilai pada kriteria yang sama dengan bobot yang telah ditetapkan.',
                         ],
                         [
-                            'judul' => '3. Perhitungan & Peringkat',
-                            'isi' => 'Nilai dihitung dengan metode SAW, semakin tinggi nilai preferensi semakin tinggi peringkatnya.',
+                            'judul' => '3. Peringkat & Penerima',
+                            'isi' => 'Nilai dihitung dengan metode SAW. Warga dengan peringkat teratas sesuai jumlah yang ditetapkan menjadi penerima.',
                         ],
                     ];
                 @endphp
@@ -71,8 +71,8 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8 col-lg-12 mb-6 text-center">
-                    <h5 class="text-danger">Peringkat Penerima Bantuan</h5>
-                    <h2>Lihat daftar peringkat berdasarkan tahun</h2>
+                    <h5 class="text-danger">Daftar Penerima Bantuan</h5>
+                    <h2>Lihat daftar penerima bantuan berdasarkan tahun</h2>
                 </div>
 
                 <div class="main-card mx-auto col-lg-12 col-md-10 col-12">
@@ -104,7 +104,7 @@
                                         </select>
                                     </div>
                                     <div class="col-sm-4 d-grid">
-                                        <button type="submit" class="btn btn-primary">Lihat Peringkat</button>
+                                        <button type="submit" class="btn btn-primary">Lihat Penerima</button>
                                     </div>
                                 </div>
                             </form>
@@ -158,17 +158,17 @@
                                 </div>
 
                                 <div id="kosongCari" class="alert alert-light text-center mt-3 mb-0 d-none">
-                                    Nama tidak ditemukan pada tahun ini.
+                                    Nama tidak ditemukan pada daftar penerima tahun ini.
                                 </div>
 
                                 <p class="small text-muted mt-3 mb-0">
-                                    Total {{ $hasil->count() }} warga pada tahun ini.
+                                    Total {{ $hasil->count() }} penerima pada tahun ini.
                                 </p>
                             @else
                                 <div class="alert alert-warning text-center mb-0">
                                     <div class="fw-semibold mb-1">Data belum tersedia</div>
                                     <div class="small text-muted">
-                                        Peringkat untuk tahun yang dipilih belum dipublikasikan.
+                                        Daftar penerima untuk tahun yang dipilih belum dipublikasikan.
                                     </div>
                                 </div>
                             @endif
@@ -212,7 +212,7 @@
                     <ul class="list-inline text-center text-md-end my-2">
                         <li class="list-inline-item"><a class="text-200" href="{{ route('home') }}">Home</a></li>
                         <li class="list-inline-item"><a class="text-200" href="#alur">Alur</a></li>
-                        <li class="list-inline-item"><a class="text-200" href="#ranking">Peringkat</a></li>
+                        <li class="list-inline-item"><a class="text-200" href="#ranking">Penerima</a></li>
                         <li class="list-inline-item"><a class="text-200" href="#kontak">Kontak</a></li>
                     </ul>
                 </div>
