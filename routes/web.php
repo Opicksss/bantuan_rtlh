@@ -28,6 +28,7 @@ Route::middleware(['guest'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('verifikator-dashboard', [App\Http\Controllers\VerifikatorDashboardController::class, 'dashboard'])->name('verifikator-dashboard');
 
     Route::resource('kriteria', KriteriaController::class);
 

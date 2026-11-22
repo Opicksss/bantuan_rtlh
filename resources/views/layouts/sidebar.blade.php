@@ -36,11 +36,14 @@
             <ul class="metismenu list-unstyled" id="side-menu">
                 <li class="menu-title">Menu</li>
 
+
+
+                @if (auth()->user()->role == 'verifikator')
                 <li>
-                    <a href="{{ route('dashboard') }}"
-                        class="waves-effect {{ request()->is('dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('verifikator-dashboard') }}"
+                        class="waves-effect {{ request()->is('verifikator-dashboard') ? 'active' : '' }}">
                         <i class="uim uim-airplay"></i>
-                        <span>Dashboard</span>
+                        <span>Verifikator Dashboard</span>
                     </a>
                 </li>
                 <li>
@@ -57,6 +60,34 @@
                         <span>Warga</span>
                     </a>
                 </li>
+                @endif
+
+                @if (auth()->user()->role == 'admin')
+
+                <li>
+                    <a href="{{ route('dashboard') }}"
+                        class="waves-effect {{ request()->is('dashboard') ? 'active' : '' }}">
+                        <i class="uim uim-airplay"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('kriteria.index') }}"
+                        class="waves-effect {{ request()->routeIs('kriteria.*', 'subKriteria.*') ? 'active' : '' }}">
+                        <i class="uim uim-layers-alt"></i>
+                        <span>Kriteria</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('alternatif.index') }}"
+                        class="waves-effect {{ request()->is('alternatif*') ? 'active' : '' }}">
+                        <i class="uim uim-layer-group"></i>
+                        <span>Warga</span>
+                    </a>
+                </li>
+
+
                 <li>
                     <a href="{{ route('hasil-saw.index') }}"
                         class="waves-effect {{ request()->is('hasil-saw*') ? 'active' : '' }}">
@@ -81,6 +112,7 @@
                         <li><a href="{{ route('management-akun.verifikator') }}">Verifikator</a></li>
                     </ul>
                 </li>
+                @endif
             </ul>
 
         </div>
