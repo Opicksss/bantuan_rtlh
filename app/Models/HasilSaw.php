@@ -13,6 +13,11 @@ class HasilSaw extends Model
         'tahun',
         'nilai_preferensi',
         'ranking',
+        'penerima',
+    ];
+
+    protected $casts = [
+        'penerima' => 'boolean',
     ];
 
     public function alternatif()

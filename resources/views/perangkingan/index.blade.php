@@ -110,6 +110,7 @@
                                         <th>Nama</th>
                                         <th>Alamat</th>
                                         <th style="min-width:200px">Nilai Preferensi (V)</th>
+                                        <th class="text-center">Keterangan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -119,7 +120,7 @@
                                             $v = (float) $row->nilai_preferensi;
                                             $persen = $max > 0 ? round(($v / $max) * 100) : 0;
                                         @endphp
-                                        <tr>
+                                        <tr class="{{ $row->penerima ? 'table-success' : '' }}">
                                             <td class="text-center">
                                                 <span class="{{ $badgeClass($row->ranking) }}"
                                                     style="font-size:0.95rem; padding:0.45rem 0.6rem;">
@@ -137,6 +138,13 @@
                                                         style="width: {{ $persen }}%;" aria-valuenow="{{ $persen }}"
                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($row->penerima)
+                                                    <span class="badge bg-success">Menerima</span>
+                                                @else
+                                                    <span class="badge bg-secondary">Tidak Menerima</span>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

@@ -31,7 +31,12 @@ Perhitungan SAW
                         <input type="number" id="tahun" name="tahun" class="form-control"
                             value="{{ $tahun }}" min="2000" max="2100">
                     </div>
-                    <div class="col-md-9 d-flex gap-2">
+                    <div class="col-md-3">
+                        <label for="kuota" class="form-label">Jumlah Penerima</label>
+                        <input type="number" id="kuota" name="kuota" class="form-control"
+                            value="{{ $kuota }}" min="1" placeholder="wajib diisi">
+                    </div>
+                    <div class="col-md-6 d-flex gap-2 flex-wrap">
                         <button type="submit" class="btn btn-primary">Hitung</button>
 
                         @if (count($hasil))
@@ -188,6 +193,25 @@ Perhitungan SAW
             <div class="card-body">
                 <h5 class="mb-1">4. Nilai Preferensi (V) &amp; Ranking</h5>
                 <p class="text-muted small mb-3">V = Σ (bobot × r)</p>
+
+                @php $jumlahPenerima = collect($hasil)->where('penerima', true)->count(); @endphp
+                @if ($kuota)
+                <div class="alert alert-success py-2 small">
+                    Jumlah penerima: <strong>{{ $jumlahPenerima }}</strong> dari {{ count($hasil) }} warga
+                    (peringkat 1{{ $jumlahPenerima > 1 ? ' – ' . $jumlahPenerima : '' }}).
+                </div>
+                @else
+                <div class="alert alert-info py-2 small">
+                    Isi <strong>Jumlah Penerima</strong> lalu klik Hitung untuk menentukan siapa yang menerima.
+                </div>
+                @endif
+
+                @if ($seriBatas)
+                <div class="alert alert-warning py-2 small">
+                    Perhatian: nilai penerima terakhir sama dengan warga di bawahnya, jadi batas penerima
+                    jatuh pada nilai yang seri. Tentukan secara musyawarah atau ubah jumlah penerima.
+                </div>
+                @endif
                 <div class="table-responsive">
                     <table class="table table-striped table-bordered mb-0">
                         <thead>
@@ -198,11 +222,12 @@ Perhitungan SAW
                                 <th>Nama</th>
                                 <th>Alamat</th>
                                 <th class="text-center">Nilai V</th>
+                                <th class="text-center">Keterangan</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($hasil as $row)
-                            <tr>
+                            <tr class="{{ $row['penerima'] ? 'table-success' : '' }}">
                                 <td class="text-center">
                                     <span class="badge {{ $row['ranking'] <= 3 ? 'bg-primary' : 'bg-secondary' }}">
                                         {{ $row['ranking'] }}
@@ -213,6 +238,15 @@ Perhitungan SAW
                                 <td>{{ $row['alternatif']->name }}</td>
                                 <td>{{ $row['alternatif']->alamat ?? '-' }}</td>
                                 <td class="text-center"><strong>{{ number_format($row['v'], 4) }}</strong></td>
+                                <td class="text-center">
+                                    @if (!$kuota)
+                                    <span class="text-muted">-</span>
+                                    @elseif ($row['penerima'])
+                                    <span class="badge bg-success">Menerima</span>
+                                    @else
+                                    <span class="badge bg-secondary">Tidak Menerima</span>
+                                    @endif
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -231,19 +265,26 @@ Perhitungan SAW
             <form action="{{ route('hasil-saw.simpan') }}" method="POST">
                 @csrf
                 <input type="hidden" name="tahun" value="{{ $tahun }}">
+                <input type="hidden" name="kuota" value="{{ $kuota }}">
                 <div class="modal-header">
                     <h5 class="modal-title">Simpan Hasil SAW</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Simpan hasil perhitungan tahun {{ $tahun }}?
+                    Simpan hasil perhitungan tahun {{ $tahun }}
+                    @if ($kuota)
+                    dengan <strong>{{ $kuota }}</strong> penerima?
+                    @else
+                    ?
+                    <p class="text-danger small mt-2 mb-0">Isi Jumlah Penerima dan klik Hitung terlebih dahulu.</p>
+                    @endif
                     @if ($tersimpan)
                     <p class="text-danger small mt-2 mb-0">Hasil lama pada tahun ini akan ditimpa.</p>
                     @endif
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-success">Simpan</button>
+                    <button type="submit" class="btn btn-success" {{ $kuota ? '' : 'disabled' }}>Simpan</button>
                 </div>
             </form>
         </div>

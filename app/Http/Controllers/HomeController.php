@@ -8,12 +8,14 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     /**
-     * Halaman publik (tanpa login): ranking penerima per tahun.
+     * Halaman publik (tanpa login): daftar PENERIMA bantuan per tahun.
+     * Hanya warga yang ditandai penerima (sesuai jumlah penerima saat hasil disimpan).
      */
     public function index(Request $request)
     {
-        // Daftar tahun yang sudah punya hasil tersimpan, terbaru di atas
+        // Daftar tahun yang sudah punya penerima tersimpan, terbaru di atas
         $tahunOptions = HasilSaw::select('tahun')
+            ->where('penerima', true)
             ->distinct()
             ->orderByDesc('tahun')
             ->pluck('tahun');
@@ -33,6 +35,7 @@ class HomeController extends Controller
             // Hanya ambil kolom yang perlu ditampilkan (data pribadi warga tidak ikut dimuat)
             $hasil = HasilSaw::with('alternatif:id,name')
                 ->where('tahun', $selected)
+                ->where('penerima', true)
                 ->orderBy('ranking')
                 ->orderBy('id')
                 ->get();
