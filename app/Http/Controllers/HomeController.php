@@ -8,44 +8,36 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     /**
-     * Halaman publik (tanpa login): ranking penerima per periode 6 bulan.
+     * Halaman publik (tanpa login): ranking penerima per tahun.
      */
     public function index(Request $request)
     {
-        // Daftar periode yang sudah punya hasil tersimpan, terbaru di atas
-        $periodOptions = HasilSaw::select('tahun', 'periode')
+        // Daftar tahun yang sudah punya hasil tersimpan, terbaru di atas
+        $tahunOptions = HasilSaw::select('tahun')
             ->distinct()
             ->orderByDesc('tahun')
-            ->orderByDesc('periode')
-            ->get()
-            ->map(fn ($r) => [
-                'value' => "{$r->tahun}-{$r->periode}",
-                'label' => ($r->periode == 1 ? 'Januari - Juni' : 'Juli - Desember') . ' ' . $r->tahun,
-            ]);
+            ->pluck('tahun');
 
-        // Format yang diterima hanya "YYYY-1" atau "YYYY-2"
-        $selected = $request->query('periode_tahun');
-        if (!is_string($selected) || !preg_match('/^\d{4}-[12]$/', $selected)) {
+        // Format yang diterima hanya 4 digit angka, mis. "2026"
+        $selected = $request->query('tahun');
+        if (!is_string($selected) || !preg_match('/^\d{4}$/', $selected)) {
             $selected = null;
         }
 
-        // Kalau belum memilih, tampilkan periode terbaru
-        $selected ??= $periodOptions->first()['value'] ?? null;
+        // Kalau belum memilih, tampilkan tahun terbaru
+        $selected = $selected !== null ? (int) $selected : $tahunOptions->first();
 
         $hasil = collect();
 
         if ($selected) {
-            [$tahun, $periode] = explode('-', $selected);
-
             // Hanya ambil kolom yang perlu ditampilkan (data pribadi warga tidak ikut dimuat)
             $hasil = HasilSaw::with('alternatif:id,name')
-                ->where('tahun', (int) $tahun)
-                ->where('periode', (int) $periode)
+                ->where('tahun', $selected)
                 ->orderBy('ranking')
                 ->orderBy('id')
                 ->get();
         }
 
-        return view('home.index', compact('periodOptions', 'selected', 'hasil'));
+        return view('home.index', compact('tahunOptions', 'selected', 'hasil'));
     }
 }

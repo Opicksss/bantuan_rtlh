@@ -10,14 +10,14 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-5 col-xl-6 col-xxl-7 order-0 order-md-1 text-end">
-                    <img Service="pt-7 pt-md-0 w-100" src="{{ asset('home/assets/img/illustrations/hero.png') }}"
+                    <img class="pt-7 pt-md-0 w-100" src="{{ asset('home/assets/img/illustrations/hero.png') }}"
                         alt="hero-header" />
                 </div>
                 <div class="col-md-75 col-xl-6 col-xxl-5 text-md-start text-center py-8">
                     <h1 class="fw-normal fs-6 fs-xxl-7">Informasi Penerima Bantuan</h1>
                     <h1 class="fw-bolder fs-6 fs-xxl-7 mb-2">Transparan &amp; Terbuka</h1>
                     <p class="fs-1 mb-5">
-                        Warga dapat melihat peringkat calon penerima bantuan setiap periode tanpa perlu login.
+                        Warga dapat melihat peringkat calon penerima bantuan setiap tahun tanpa perlu login.
                         Peringkat dihitung dari penilaian kriteria yang sama untuk semua warga.
                     </p>
                     <a class="btn btn-primary px-5" href="#ranking">Lihat Peringkat</a>
@@ -72,18 +72,13 @@
             <div class="row justify-content-center">
                 <div class="col-md-8 col-lg-12 mb-6 text-center">
                     <h5 class="text-danger">Peringkat Penerima Bantuan</h5>
-                    <h2>Lihat daftar peringkat berdasarkan periode 6 bulan</h2>
+                    <h2>Lihat daftar peringkat berdasarkan tahun</h2>
                 </div>
 
                 <div class="main-card mx-auto col-lg-12 col-md-10 col-12">
                     <div class="card shadow-sm border-0">
                         <div class="card-body">
                             @php
-                                $periodLabel = fn($row) => $row->periode == 1
-                                    ? 'Januari - Juni'
-                                    : ($row->periode == 2
-                                        ? 'Juli - Desember'
-                                        : '-');
                                 $badgeClass = fn($rank) => $rank == 1
                                     ? 'badge bg-success'
                                     : ($rank == 2
@@ -93,17 +88,17 @@
                                             : 'badge bg-secondary'));
                             @endphp
 
-                            {{-- Pilih periode --}}
+                            {{-- Pilih tahun --}}
                             <form method="GET" action="{{ route('home') }}#ranking" class="mb-3">
                                 <div class="row g-2">
                                     <div class="col-sm-8">
-                                        <label for="periode_tahun" class="form-label visually-hidden">Pilih Periode</label>
-                                        <select name="periode_tahun" id="periode_tahun" class="form-select" required>
-                                            <option value="">-- Pilih Periode --</option>
-                                            @foreach ($periodOptions as $opt)
-                                                <option value="{{ $opt['value'] }}"
-                                                    {{ (string) $selected === (string) $opt['value'] ? 'selected' : '' }}>
-                                                    {{ $opt['label'] }}
+                                        <label for="tahun" class="form-label visually-hidden">Pilih Tahun</label>
+                                        <select name="tahun" id="tahun" class="form-select" required>
+                                            <option value="">-- Pilih Tahun --</option>
+                                            @foreach ($tahunOptions as $t)
+                                                <option value="{{ $t }}"
+                                                    {{ (string) $selected === (string) $t ? 'selected' : '' }}>
+                                                    {{ $t }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -131,8 +126,7 @@
                                                     <th style="width:110px">Peringkat</th>
                                                     <th>Nama</th>
                                                     <th style="width:200px">Nilai Preferensi</th>
-                                                    <th style="width:90px">Tahun</th>
-                                                    <th style="width:200px">Periode</th>
+                                                    <th style="width:120px">Tahun</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -156,7 +150,6 @@
                                                             </div>
                                                         </td>
                                                         <td>{{ $row->tahun ?? '-' }}</td>
-                                                        <td><span class="text-muted">{{ $periodLabel($row) }}</span></td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
@@ -165,17 +158,17 @@
                                 </div>
 
                                 <div id="kosongCari" class="alert alert-light text-center mt-3 mb-0 d-none">
-                                    Nama tidak ditemukan pada periode ini.
+                                    Nama tidak ditemukan pada tahun ini.
                                 </div>
 
                                 <p class="small text-muted mt-3 mb-0">
-                                    Total {{ $hasil->count() }} warga pada periode ini.
+                                    Total {{ $hasil->count() }} warga pada tahun ini.
                                 </p>
                             @else
                                 <div class="alert alert-warning text-center mb-0">
                                     <div class="fw-semibold mb-1">Data belum tersedia</div>
                                     <div class="small text-muted">
-                                        Peringkat untuk periode 6 bulan yang dipilih belum dipublikasikan.
+                                        Peringkat untuk tahun yang dipilih belum dipublikasikan.
                                     </div>
                                 </div>
                             @endif

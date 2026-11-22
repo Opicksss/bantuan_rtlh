@@ -22,7 +22,7 @@ Perhitungan SAW
         </div>
         @endif
 
-        {{-- Filter periode --}}
+        {{-- Filter tahun --}}
         <div class="card">
             <div class="card-body">
                 <form action="{{ route('hasil-saw.index') }}" method="GET" class="row g-2 align-items-end">
@@ -31,14 +31,7 @@ Perhitungan SAW
                         <input type="number" id="tahun" name="tahun" class="form-control"
                             value="{{ $tahun }}" min="2000" max="2100">
                     </div>
-                    <div class="col-md-3">
-                        <label for="periode" class="form-label">Periode</label>
-                        <select id="periode" name="periode" class="form-control">
-                            <option value="1" @selected($periode==1)>Periode 1 (Jan – Jun)</option>
-                            <option value="2" @selected($periode==2)>Periode 2 (Jul – Des)</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6 d-flex gap-2">
+                    <div class="col-md-9 d-flex gap-2">
                         <button type="submit" class="btn btn-primary">Hitung</button>
 
                         @if (count($hasil))
@@ -59,7 +52,7 @@ Perhitungan SAW
 
                 @if ($tersimpan)
                 <small class="text-success d-block mt-2">
-                    Hasil periode ini sudah tersimpan di database.
+                    Hasil tahun ini sudah tersimpan di database.
                 </small>
                 @endif
             </div>
@@ -69,7 +62,7 @@ Perhitungan SAW
         <div class="card">
             <div class="card-body text-center text-muted py-5">
                 Belum ada alternatif yang berstatus <strong>Terverifikasi</strong> dengan penilaian lengkap
-                pada periode {{ $periode }} tahun {{ $tahun }}.
+                pada tahun {{ $tahun }}.
             </div>
         </div>
         @else
@@ -238,15 +231,14 @@ Perhitungan SAW
             <form action="{{ route('hasil-saw.simpan') }}" method="POST">
                 @csrf
                 <input type="hidden" name="tahun" value="{{ $tahun }}">
-                <input type="hidden" name="periode" value="{{ $periode }}">
                 <div class="modal-header">
                     <h5 class="modal-title">Simpan Hasil SAW</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Simpan hasil perhitungan periode {{ $periode }} tahun {{ $tahun }}?
+                    Simpan hasil perhitungan tahun {{ $tahun }}?
                     @if ($tersimpan)
-                    <p class="text-danger small mt-2 mb-0">Hasil lama pada periode ini akan ditimpa.</p>
+                    <p class="text-danger small mt-2 mb-0">Hasil lama pada tahun ini akan ditimpa.</p>
                     @endif
                 </div>
                 <div class="modal-footer">
@@ -266,13 +258,12 @@ Perhitungan SAW
                 @csrf
                 @method('DELETE')
                 <input type="hidden" name="tahun" value="{{ $tahun }}">
-                <input type="hidden" name="periode" value="{{ $periode }}">
                 <div class="modal-header">
                     <h5 class="modal-title text-danger">Hapus Hasil Tersimpan</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Hasil SAW periode {{ $periode }} tahun {{ $tahun }} yang tersimpan akan dihapus.
+                    Hasil SAW tahun {{ $tahun }} yang tersimpan akan dihapus.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>

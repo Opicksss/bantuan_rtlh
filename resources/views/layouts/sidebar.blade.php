@@ -43,21 +43,14 @@
                     <a href="{{ route('verifikator-dashboard') }}"
                         class="waves-effect {{ request()->is('verifikator-dashboard') ? 'active' : '' }}">
                         <i class="uim uim-airplay"></i>
-                        <span>Verifikator Dashboard</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('kriteria.index') }}"
-                        class="waves-effect {{ request()->routeIs('kriteria.*', 'subKriteria.*') ? 'active' : '' }}">
-                        <i class="uim uim-layers-alt"></i>
-                        <span>Kriteria</span>
+                        <span>Tim Survey Dashboard</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('alternatif.index') }}"
                         class="waves-effect {{ request()->is('alternatif*') ? 'active' : '' }}">
                         <i class="uim uim-layer-group"></i>
-                        <span>Warga</span>
+                        <span>Data Survey</span>
                     </a>
                 </li>
                 @endif
@@ -97,7 +90,8 @@
                 </li>
 
                 <li>
-                    <a href="" class="waves-effect {{ request()->is('topsis*') ? 'active' : '' }}">
+                    <a href="{{ route('perangkingan.index') }}"
+                        class="waves-effect {{ request()->is('perangkingan*') ? 'active' : '' }}">
                         <i class="uim uim-graph-bar"></i>
                         <span>Perankingan</span>
                     </a>

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
              $table->foreignId('alternatif_id')->constrained()->onDelete('cascade');
             $table->integer('tahun');
-            $table->tinyInteger('periode'); // 1 = Jan–Jun, 2 = Jul–Des
+            // $table->tinyInteger('periode'); // 1 = Jan–Jun, 2 = Jul–Des
             $table->decimal('nilai_preferensi', 8, 4); // nilai V
             $table->integer('ranking');
             $table->timestamps();

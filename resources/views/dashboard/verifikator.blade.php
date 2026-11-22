@@ -15,8 +15,6 @@
             }
         };
 
-        $periodeLabel = $periodeIni == 1 ? 'Januari - Juni' : 'Juli - Desember';
-
         $cards = [
             [
                 'judul' => 'Total Warga',
@@ -60,7 +58,7 @@
                 <div class="col-12">
                     <h4 class="mb-1">Dashboard Verifikator</h4>
                     <p class="text-muted mb-0">
-                        Input nilai warga untuk periode {{ $periodeLabel }} {{ $tahunIni }}.
+                        Input nilai warga untuk tahun {{ $tahunIni }}.
                     </p>
                 </div>
             </div>
@@ -149,7 +147,7 @@
                                 @endif
                             @else
                                 <div class="alert alert-success mb-0">
-                                    Semua warga sudah dinilai lengkap pada periode ini.
+                                    Semua warga sudah dinilai lengkap pada tahun ini.
                                 </div>
                             @endif
                         </div>
@@ -163,8 +161,8 @@
                             <h4 class="card-title mb-0">Progres Penilaian</h4>
                         </div>
                         <div class="card-body">
-                            <p class="mb-1 text-muted">Periode</p>
-                            <h5 class="mb-3">{{ $periodeLabel }} {{ $tahunIni }}</h5>
+                            <p class="mb-1 text-muted">Tahun</p>
+                            <h5 class="mb-3">{{ $tahunIni }}</h5>
 
                             <p class="mb-1 text-muted">Penilaian selesai</p>
                             <div class="progress mb-1" style="height: 10px;">
@@ -178,7 +176,7 @@
 
                             <div class="alert alert-info small mb-4">
                                 Warga baru ikut perhitungan SAW setelah semua kriteria
-                                ({{ $totalKriteria }}) terisi pada periode ini.
+                                ({{ $totalKriteria }}) terisi pada tahun ini.
                             </div>
 
                             <div class="d-grid gap-2">

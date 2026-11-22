@@ -20,19 +20,12 @@ class DashboardController extends Controller
         $terverifikasi    = Alternatif::where('status', 'Terverifikasi')->count();
         $pending          = Alternatif::where('status', 'Pending')->count();
 
-        // ---- Periode berjalan (1 = Jan-Jun, 2 = Jul-Des) ----
-        $tahunIni   = now()->year;
-        $periodeIni = now()->month <= 6 ? 1 : 2;
+        // ---- Tahun berjalan (1 Jan - 31 Des) ----
+        $tahunIni = now()->year;
+        $awal     = Carbon::create($tahunIni, 1, 1)->toDateString();
+        $akhir    = Carbon::create($tahunIni, 12, 31)->toDateString();
 
-        if ($periodeIni === 1) {
-            $awal  = Carbon::create($tahunIni, 1, 1)->toDateString();
-            $akhir = Carbon::create($tahunIni, 6, 30)->toDateString();
-        } else {
-            $awal  = Carbon::create($tahunIni, 7, 1)->toDateString();
-            $akhir = Carbon::create($tahunIni, 12, 31)->toDateString();
-        }
-
-        // Alternatif yang penilaiannya lengkap (semua kriteria terisi) di periode berjalan
+        // Alternatif yang penilaiannya lengkap (semua kriteria terisi) di tahun berjalan
         $lengkapIds = Penilaian::whereBetween('date', [$awal, $akhir])
             ->select('alternatif_id')
             ->groupBy('alternatif_id')
@@ -44,18 +37,15 @@ class DashboardController extends Controller
             ->whereNotIn('id', $lengkapIds)
             ->count();
 
-        $hasilPeriodeIniTersimpan = HasilSaw::where('tahun', $tahunIni)
-            ->where('periode', $periodeIni)
-            ->exists();
+        $hasilTahunIniTersimpan = HasilSaw::where('tahun', $tahunIni)->exists();
 
-        // ---- 3 peringkat teratas dari hasil tersimpan terbaru ----
-        $latest = HasilSaw::orderByDesc('tahun')->orderByDesc('periode')->first();
+        // ---- 3 peringkat teratas dari hasil tersimpan tahun terbaru ----
+        $latest = HasilSaw::orderByDesc('tahun')->first();
 
         $terbaik = collect();
         if ($latest) {
             $terbaik = HasilSaw::with('alternatif')
                 ->where('tahun', $latest->tahun)
-                ->where('periode', $latest->periode)
                 ->orderBy('ranking')
                 ->orderBy('id')
                 ->take(3)
@@ -70,8 +60,7 @@ class DashboardController extends Controller
             'pending',
             'belumDinilai',
             'tahunIni',
-            'periodeIni',
-            'hasilPeriodeIniTersimpan',
+            'hasilTahunIniTersimpan',
             'terbaik'
         ));
     }

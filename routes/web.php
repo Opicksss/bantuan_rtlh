@@ -9,6 +9,7 @@ use App\Http\Controllers\ManagementAkunController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubKriteriaController;
+use App\Http\Controllers\PerangkinganController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 
@@ -50,11 +51,14 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/hasil-saw', [HasilSawController::class, 'simpan'])->name('hasil-saw.simpan');
     Route::delete('/hasil-saw', [HasilSawController::class, 'destroy'])->name('hasil-saw.destroy');
 
+    Route::get('/perangkingan', [PerangkinganController::class, 'index'])->name('perangkingan.index');
+
     Route::get('management-akun-admin', [ManagementAkunController::class, 'admin'])->name('management-akun.admin');
     Route::get('management-akun-verifikator', [ManagementAkunController::class, 'verifikator'])->name('management-akun.verifikator');
     Route::post('management-akun-store', [ManagementAkunController::class, 'store'])->name('management-akun.store');
     Route::put('management-akun-update/{id}', [ManagementAkunController::class, 'update'])->name('management-akun.update');
     Route::delete('management-akun-destroy/{id}', [ManagementAkunController::class, 'destroy'])->name('management-akun.destroy');
+    
 
     Route::get('profile-{id}', [ProfileController::class, 'profile'])->name('profile');
     Route::post('profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');

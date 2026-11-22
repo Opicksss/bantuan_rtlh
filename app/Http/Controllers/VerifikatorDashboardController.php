@@ -15,19 +15,12 @@ class VerifikatorDashboardController extends Controller
         $totalKriteria   = Kriteria::count();
         $totalAlternatif = Alternatif::count();
 
-        // ---- Periode berjalan (1 = Jan-Jun, 2 = Jul-Des) ----
-        $tahunIni   = now()->year;
-        $periodeIni = now()->month <= 6 ? 1 : 2;
+        // ---- Tahun berjalan (1 Jan - 31 Des) ----
+        $tahunIni = now()->year;
+        $awal     = Carbon::create($tahunIni, 1, 1)->toDateString();
+        $akhir    = Carbon::create($tahunIni, 12, 31)->toDateString();
 
-        if ($periodeIni === 1) {
-            $awal  = Carbon::create($tahunIni, 1, 1)->toDateString();
-            $akhir = Carbon::create($tahunIni, 6, 30)->toDateString();
-        } else {
-            $awal  = Carbon::create($tahunIni, 7, 1)->toDateString();
-            $akhir = Carbon::create($tahunIni, 12, 31)->toDateString();
-        }
-
-        // Jumlah kriteria yang sudah dinilai per warga pada periode berjalan
+        // Jumlah kriteria yang sudah dinilai per warga pada tahun berjalan
         // hasil: [alternatif_id => jumlah_kriteria_terisi]
         $terisi = Penilaian::whereBetween('date', [$awal, $akhir])
             ->select('alternatif_id', DB::raw('COUNT(DISTINCT kriteria_id) as jml'))
@@ -67,7 +60,6 @@ class VerifikatorDashboardController extends Controller
             'belumLengkap',
             'persen',
             'tahunIni',
-            'periodeIni',
             'perluDinilai'
         ));
     }

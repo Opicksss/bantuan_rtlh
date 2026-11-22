@@ -15,8 +15,6 @@
             }
         };
 
-        $periodeLabel = $periodeIni == 1 ? 'Januari - Juni' : 'Juli - Desember';
-
         $cards = [
             [
                 'judul' => 'Total Warga',
@@ -52,7 +50,7 @@
                 'judul' => 'Belum Dinilai Lengkap',
                 'nilai' => $belumDinilai,
                 'satuan' => 'Warga',
-                'badge' => 'Periode ' . $periodeIni,
+                'badge' => 'Tahun ' . $tahunIni,
                 'badgeClass' => 'bg-subtle-danger text-danger',
                 'ket' => 'Terverifikasi, belum ikut SAW',
                 'icon' => 'uim uim-document-layout-left',
@@ -125,7 +123,7 @@
                             <h4 class="card-title mb-0 flex-grow-1">Peringkat Teratas</h4>
                             <div>
                                 @if ($terbaik->count())
-                                    <a href="{{ $link('hasil-saw.index', ['tahun' => $terbaik->first()->tahun, 'periode' => $terbaik->first()->periode]) }}"
+                                    <a href="{{ $link('hasil-saw.index', ['tahun' => $terbaik->first()->tahun]) }}"
                                         class="btn btn-soft-primary btn-sm">Lihat Detail</a>
                                 @else
                                     <a href="#" class="btn btn-soft-secondary btn-sm disabled">Lihat Detail</a>
@@ -136,8 +134,7 @@
                         <div class="card-body">
                             @if ($terbaik->count())
                                 <h5 class="mb-3">
-                                    Periode {{ $terbaik->first()->periode == 1 ? 'Januari - Juni' : 'Juli - Desember' }}
-                                    {{ $terbaik->first()->tahun }}
+                                    Tahun {{ $terbaik->first()->tahun }}
                                 </h5>
 
                                 @foreach ($terbaik as $item)
@@ -168,14 +165,14 @@
                 <div class="col-xl-5">
                     <div class="card h-100">
                         <div class="card-header border-0 pb-0">
-                            <h4 class="card-title mb-0">Status Periode Berjalan</h4>
+                            <h4 class="card-title mb-0">Status Tahun Berjalan</h4>
                         </div>
                         <div class="card-body">
-                            <p class="mb-1 text-muted">Periode</p>
-                            <h5 class="mb-3">{{ $periodeLabel }} {{ $tahunIni }}</h5>
+                            <p class="mb-1 text-muted">Tahun</p>
+                            <h5 class="mb-3">{{ $tahunIni }}</h5>
 
                             <p class="mb-1 text-muted">Hasil SAW</p>
-                            @if ($hasilPeriodeIniTersimpan)
+                            @if ($hasilTahunIniTersimpan)
                                 <span class="badge bg-success mb-3">Sudah disimpan</span>
                             @else
                                 <span class="badge bg-warning text-dark mb-3">Belum disimpan</span>
@@ -192,7 +189,7 @@
                             </small>
 
                             <div class="d-grid gap-2">
-                                <a href="{{ $link('hasil-saw.index', ['tahun' => $tahunIni, 'periode' => $periodeIni]) }}"
+                                <a href="{{ $link('hasil-saw.index', ['tahun' => $tahunIni]) }}"
                                     class="btn btn-primary">Hitung / Lihat SAW</a>
                                 <a href="{{ $link('alternatif.index') }}" class="btn btn-outline-primary">Kelola Penilaian</a>
                             </div>
