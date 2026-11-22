@@ -18,9 +18,21 @@
 
         $cards = [
             ['judul' => 'Jumlah Warga', 'nilai' => $statistik['total'], 'icon' => 'uim uim-layers-alt'],
-            ['judul' => 'Nilai Tertinggi', 'nilai' => $statistik['total'] ? number_format($statistik['tertinggi'], 4) : '-', 'icon' => 'uim uim-check-circle'],
-            ['judul' => 'Nilai Terendah', 'nilai' => $statistik['total'] ? number_format($statistik['terendah'], 4) : '-', 'icon' => 'uim uim-layer-group'],
-            ['judul' => 'Rata-rata', 'nilai' => $statistik['total'] ? number_format($statistik['rata'], 4) : '-', 'icon' => 'uim uim-document-layout-left'],
+            [
+                'judul' => 'Nilai Tertinggi',
+                'nilai' => $statistik['total'] ? number_format($statistik['tertinggi'], 4) : '-',
+                'icon' => 'uim uim-check-circle',
+            ],
+            [
+                'judul' => 'Nilai Terendah',
+                'nilai' => $statistik['total'] ? number_format($statistik['terendah'], 4) : '-',
+                'icon' => 'uim uim-layer-group',
+            ],
+            [
+                'judul' => 'Rata-rata',
+                'nilai' => $statistik['total'] ? number_format($statistik['rata'], 4) : '-',
+                'icon' => 'uim uim-document-layout-left',
+            ],
         ];
     @endphp
 
@@ -30,7 +42,8 @@
             <div class="row mb-3">
                 <div class="col-12">
                     <h4 class="mb-1">Perangkingan Penerima Bantuan</h4>
-                    <p class="text-muted mb-0">Hasil perhitungan SAW yang sudah disimpan, diurutkan dari nilai preferensi tertinggi.</p>
+                    <p class="text-muted mb-0">Hasil perhitungan SAW yang sudah disimpan, diurutkan dari nilai preferensi
+                        tertinggi.</p>
                 </div>
             </div>
 
@@ -94,10 +107,15 @@
                 {{-- Tabel peringkat --}}
                 <div class="card">
                     <div class="card-body">
-                        <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
-                            <h5 class="mb-0">Daftar Peringkat Tahun {{ $tahun }}</h5>
-                            <input type="search" id="cariNama" class="form-control" style="max-width: 280px;"
-                                placeholder="Cari kode / nama / alamat..." autocomplete="off">
+                        <div class="mb-3">
+                            <h5 class="mb-0 mt-3">Daftar Peringkat Tahun {{ $tahun }}</h5>
+                            <div class="d-flex flex-wrap gap-2">
+                                <input type="search" id="cariNama" class="form-control ms-auto" style="max-width: 280px;"
+                                    placeholder="Cari kode / nama / alamat..." autocomplete="off">
+                                <button type="button" id="exportExcel" class="btn btn-outline-success">Excel</button>
+                                <button type="button" id="exportPdf" class="btn btn-outline-danger">PDF</button>
+                                <button type="button" id="printRanking" class="btn btn-outline-secondary">Print</button>
+                            </div>
                         </div>
 
                         <div class="table-responsive">
@@ -124,7 +142,7 @@
                                             <td class="text-center">
                                                 <span class="{{ $badgeClass($row->ranking) }}"
                                                     style="font-size:0.95rem; padding:0.45rem 0.6rem;">
-                                                    #{{ $row->ranking }}
+                                                    {{ $row->ranking }}
                                                 </span>
                                             </td>
                                             <td class="cari">{{ optional($a)->kode ?? '-' }}</td>
@@ -135,8 +153,9 @@
                                                 <div class="fw-medium mb-1">{{ number_format($v, 4) }}</div>
                                                 <div class="progress" style="height: 6px;">
                                                     <div class="progress-bar bg-primary" role="progressbar"
-                                                        style="width: {{ $persen }}%;" aria-valuenow="{{ $persen }}"
-                                                        aria-valuemin="0" aria-valuemax="100"></div>
+                                                        style="width: {{ $persen }}%;"
+                                                        aria-valuenow="{{ $persen }}" aria-valuemin="0"
+                                                        aria-valuemax="100"></div>
                                                 </div>
                                             </td>
                                             <td class="text-center">
@@ -164,19 +183,19 @@
 
     {{-- Pencarian sisi browser --}}
     <script>
-        (function () {
+        (function() {
             var input = document.getElementById('cariNama');
             if (!input) return;
 
             var rows = document.querySelectorAll('#tabelRanking tbody tr');
             var kosong = document.getElementById('kosongCari');
 
-            input.addEventListener('input', function () {
+            input.addEventListener('input', function() {
                 var q = input.value.trim().toLowerCase();
                 var tampil = 0;
 
-                rows.forEach(function (tr) {
-                    var teks = Array.prototype.map.call(tr.querySelectorAll('.cari'), function (td) {
+                rows.forEach(function(tr) {
+                    var teks = Array.prototype.map.call(tr.querySelectorAll('.cari'), function(td) {
                         return td.textContent;
                     }).join(' ').toLowerCase();
 
@@ -186,6 +205,57 @@
                 });
 
                 kosong.classList.toggle('d-none', tampil !== 0);
+            });
+
+            function tabelTerfilter() {
+                var table = document.getElementById('tabelRanking').cloneNode(true);
+                Array.prototype.forEach.call(table.querySelectorAll('tbody tr'), function(row) {
+                    if (row.style.display === 'none') row.remove();
+                });
+                return table;
+            }
+
+            function downloadFile(content, filename, type) {
+                var blob = new Blob([content], {
+                    type: type
+                });
+                var link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = filename;
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+                URL.revokeObjectURL(link.href);
+            }
+
+            document.getElementById('exportExcel').addEventListener('click', function() {
+                var table = tabelTerfilter();
+                var content = '<html><head><meta charset="UTF-8"></head><body>' +
+                    '<h3>Daftar Peringkat Tahun {{ $tahun }}</h3>' + table.outerHTML + '</body></html>';
+                downloadFile('\ufeff' + content, 'perangkingan-{{ $tahun }}.xls',
+                    'application/vnd.ms-excel');
+            });
+
+            function cetak(denganDialog) {
+                var win = window.open('', '_blank');
+                if (!win) return;
+                win.document.write('<html><head><title>Perangkingan {{ $tahun }}</title>' +
+                    '<style>body{font-family:Arial,sans-serif}table{width:100%;border-collapse:collapse}' +
+                    'th,td{border:1px solid #999;padding:6px;text-align:left}th{background:#eee}' +
+                    '.progress{display:none}</style></head><body>' +
+                    '<h3>Daftar Peringkat Tahun {{ $tahun }}</h3>' + tabelTerfilter().outerHTML +
+                    '</body></html>');
+                win.document.close();
+                win.focus();
+                win.print();
+                if (denganDialog) win.close();
+            }
+
+            document.getElementById('exportPdf').addEventListener('click', function() {
+                cetak(true);
+            });
+            document.getElementById('printRanking').addEventListener('click', function() {
+                cetak(true);
             });
         })();
     </script>

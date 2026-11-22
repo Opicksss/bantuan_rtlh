@@ -207,7 +207,7 @@
                                     </small>
                                 @else
                                     <small class="text-muted">
-                                        Berkas wajib diunggah.
+                                        Berkas wajib diunggah, Maksimal ukuran berkas 5MB, Format berkas: JPG, JPEG, PNG, PDF.
                                     </small>
                                 @endif
 

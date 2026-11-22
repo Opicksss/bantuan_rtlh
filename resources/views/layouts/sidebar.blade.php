@@ -4,7 +4,7 @@
     <div class="navbar-brand-box">
         <a href="" class="logo logo-dark">
             <span class="logo-sm">
-                <img src="img/logo.png" alt="logo-sm-dark" height="50">
+                <img src="img/logo-home.png" alt="logo-sm-dark" height="50">
             </span>
             <span class="logo-lg">
                 <img src="img/logo.png" alt="logo-dark" height="50">
@@ -13,10 +13,10 @@
 
         <a href="index.html" class="logo logo-light">
             <span class="logo-sm">
-                <img src="img/logo.png" alt="logo-sm-light" height="24">
+                <img src="img/logo-home.png" alt="logo-sm-light" height="50">
             </span>
             <span class="logo-lg">
-                <img src="img/logo.png" alt="logo-light" height="22">
+                <img src="img/logo.png" alt="logo-light" height="50">
             </span>
         </a>
     </div>

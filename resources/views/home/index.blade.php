@@ -4,9 +4,9 @@
 @section('content')
     {{-- ===================== HERO ===================== --}}
     <section class="py-xxl-10 pb-0" id="home">
-        <!-- <div class="bg-holder bg-size"
+        <div class="bg-holder bg-size"
             style="background-image:url({{ asset('home/assets/img/gallery/hero-header-bg.png') }});background-position:top center;background-size:cover;">
-        </div> -->
+        </div> 
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-5 col-xl-6 col-xxl-7 order-0 order-md-1 text-end">
@@ -14,13 +14,13 @@
                         alt="hero-header" />
                 </div>
                 <div class="col-md-75 col-xl-6 col-xxl-5 text-md-start text-center py-8">
-                    <h1 class="fw-normal fs-6 fs-xxl-7">Informasi Penerima Bantuan</h1>
+                    <h1 class="fw-normal fs-6 fs-xxl-7">Informasi Penerima Bantuan RTLH Dana Desa GEDUNGAN</h1>
                     <h1 class="fw-bolder fs-6 fs-xxl-7 mb-2">Transparan &amp; Terbuka</h1>
                     <p class="fs-1 mb-5">
-                        Warga dapat melihat daftar penerima bantuan setiap tahun tanpa perlu login.
+                        Warga dapat melihat daftar penerima bantuan setiap tahun.
                         Penerima ditentukan dari peringkat nilai penilaian kriteria yang sama untuk semua warga.
                     </p>
-                    <a class="btn btn-primary px-5" href="#ranking">Lihat Penerima</a>
+                    <a class="btn btn-success px-5" href="#ranking">Lihat Penerima</a>
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8 col-lg-6 text-center mb-3">
-                    <h5 class="text-danger">ALUR PENILAIAN</h5>
+                    <h5 class="text-success">ALUR PENILAIAN</h5>
                     <h2>Bagaimana penerima ditentukan?</h2>
                 </div>
             </div>
@@ -71,7 +71,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8 col-lg-12 mb-6 text-center">
-                    <h5 class="text-danger">Daftar Penerima Bantuan</h5>
+                    <h5 class="text-success">Daftar Penerima Bantuan</h5>
                     <h2>Lihat daftar penerima bantuan berdasarkan tahun</h2>
                 </div>
 
@@ -104,7 +104,7 @@
                                         </select>
                                     </div>
                                     <div class="col-sm-4 d-grid">
-                                        <button type="submit" class="btn btn-primary">Lihat Penerima</button>
+                                        <button type="submit" class="btn btn-success">Lihat Penerima</button>
                                     </div>
                                 </div>
                             </form>
@@ -184,16 +184,16 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8 col-lg-6 text-center">
-                    <h5 class="text-danger">BUTUH BANTUAN?</h5>
+                    <h5 class="text-success">BUTUH BANTUAN?</h5>
                     <h2>Hubungi petugas</h2>
                     <p class="mt-3">
                         Jika ada pertanyaan atau keberatan terkait data Anda, silakan hubungi petugas
-                        di kantor desa pada jam pelayanan.
+                        di kantor desa GEDUNGAN pada jam pelayanan.
                     </p>
                     {{-- TODO: ganti dengan alamat / jam layanan / nomor kontak yang sebenarnya --}}
-                    <p class="mb-1"><i class="fas fa-map-marker-alt text-warning me-2"></i>Alamat kantor desa</p>
-                    <p class="mb-1"><i class="fas fa-clock text-warning me-2"></i>Senin - Jumat : 08.00 - 15.00 WIB</p>
-                    <p><i class="fas fa-phone-alt text-warning me-2"></i>Nomor kontak petugas</p>
+                    <p class="mb-1"><i class="fas fa-map-marker-alt text-success me-2"></i><a class="text-dark" href="https://www.google.com/maps/place/Balai+Desa+Gedungan/@-7.0281355,113.8508905,17z/data=!3m1!4b1!4m6!3m5!1s0x2dd9e7e61c253919:0xb9a8d5b033a8b61c!8m2!3d-7.0281355!4d113.8534654!16s%2Fg%2F11t_yn26ss?entry=ttu&amp;g_ep=EgoyMDI2MTExOC4xIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">Jl. Trunojoyo No.Km. 03, Gedungan Timur, Gedungan, Kec. Batuan, Kabupaten Sumenep, Jawa Timur 69451</a></p>
+                    <p class="mb-1"><i class="fas fa-clock text-success me-2"></i>Senin - Jumat : 08.00 - 15.00 WIB</p>
+                    <p><i class="fas fa-phone-alt text-success me-2"></i>0812-3456-7890</p>
                 </div>
             </div>
         </div>
@@ -205,7 +205,7 @@
             <div class="row justify-content-md-between justify-content-evenly py-4">
                 <div class="col-12 col-sm-8 col-md-6 col-lg-auto text-center text-md-start">
                     <p class="fs--1 my-2 fw-bold text-200">
-                        All rights Reserved &copy; {{ date('Y') }}
+                        All rights Reserved &copy; {{ date('Y') }} D&O Coders
                     </p>
                 </div>
                 <div class="col-12 col-sm-8 col-md-6">

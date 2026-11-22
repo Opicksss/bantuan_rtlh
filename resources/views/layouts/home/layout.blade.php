@@ -29,7 +29,7 @@
         <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 d-block"
             data-navbar-on-scroll="data-navbar-on-scroll">
             <div class="container"><a class="navbar-brand" href="{{ route('home') }}"><img
-                        src="img/logo.png" height="45" alt="logo" /></a><button
+                        src="img/logo.png" height="65" alt="logo" /></a><button
                     class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon">
@@ -42,7 +42,7 @@
                         <li class="nav-item px-2"><a class="nav-link" href="{{ route('home') }}#kontak">Kontak</a></li>
                     </ul>
                 </div>
-                <a class="btn btn-primary order-1 order-lg-0 ms-lg-3" href="{{ route('login') }}">Log In</a>
+                <a class="btn btn-success order-1 order-lg-0 ms-lg-3" href="{{ route('login') }}">Log In</a>
             </div>
         </nav>
 
