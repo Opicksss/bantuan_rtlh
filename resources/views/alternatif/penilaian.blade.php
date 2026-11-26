@@ -16,21 +16,45 @@
                                     <a href="{{ route('alternatif.index') }}" class="text-decoration-none">
                                         Management Warga
                                     </a> > Ungah Berkas - <strong class="text-uppercase">{{ $alternatif->name }}</strong>
+                                    <span
+                                        class="badge ms-2 {{ $alternatif->status === 'Terverifikasi' ? 'bg-success' : 'bg-warning text-dark' }}">
+                                        {{ $alternatif->status }}
+                                    </span>
                                 </h5>
 
-                                @if ($penilaian->isNotEmpty())
-                                    <div class="d-flex gap-2">
+                                <div class="d-flex gap-2">
+                                    {{-- Tombol verifikasi: hanya admin, SELALU tampil (berubah sesuai status) --}}
+                                    @if (auth()->user()->role === 'admin')
+                                        @if ($alternatif->status === 'Terverifikasi')
+                                            <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                                data-bs-target="#batal-verifikasi">
+                                                Batalkan Verifikasi
+                                            </button>
+                                        @elseif ($lengkap)
+                                            <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                                data-bs-target="#verifikasi">
+                                                Verifikasi
+                                            </button>
+                                        @else
+                                            <span title="Penilaian dan berkas belum lengkap">
+                                                <button type="button" class="btn btn-success" disabled
+                                                    style="pointer-events: none;">Verifikasi</button>
+                                            </span>
+                                        @endif
+                                    @endif
+
+                                    @if ($penilaian->isNotEmpty())
                                         <button type="button" class="btn btn-outline-info" data-bs-toggle="modal"
                                             data-bs-target="#create">Update</button>
                                         <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
                                             data-bs-target="#delete">
                                             Delete
                                         </button>
-                                    </div>
-                                @else
-                                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
-                                        data-bs-target="#create">Unggah</button>
-                                @endif
+                                    @else
+                                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                                            data-bs-target="#create">Unggah</button>
+                                    @endif
+                                </div>
                             </div>
 
                             <table id="dtabel" class="table table-striped table-bordered dt-responsive nowrap"
@@ -140,6 +164,9 @@
                 </div>
 
                 <div class="modal-body">
+                    <div class="alert alert-info small">
+                        Setelah disimpan, status warga menjadi <strong>Pending</strong> sampai diverifikasi oleh admin.
+                    </div>
                     <form action="{{ route('penilaian.store', $alternatif->id) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
@@ -235,6 +262,82 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Verifikasi (hanya admin) -->
+    @if (auth()->user()->role === 'admin')
+        <div id="verifikasi" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="verifikasiLabel"
+            aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header justify-content-center">
+                        <h5 class="modal-title text-success" id="verifikasiLabel">
+                            Konfirmasi Verifikasi
+                        </h5>
+                    </div>
+                    <div class="modal-body text-center">
+                        <i class="ri-checkbox-circle-line text-success" style="font-size: 60px;"></i>
+
+                        <h5 class="mt-2">Verifikasi warga ini?</h5>
+
+                        <p class="text-muted mb-0">
+                            Penilaian dan berkas milik <strong>{{ $alternatif->name }}</strong>
+                            sudah diperiksa dan dinyatakan sesuai.
+                        </p>
+
+                        <p class="text-muted small mt-2 mb-0">
+                            Setelah terverifikasi, warga ini ikut dalam perhitungan SAW.
+                        </p>
+                    </div>
+                    <div class="modal-footer justify-content-center gap-3">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
+                        <form action="{{ route('penilaian.verifikasi', $alternatif->id) }}" method="POST"
+                            style="display: inline;">
+                            @csrf
+                            <button type="submit" class="btn btn-success">Ya, Verifikasi</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    <!-- Modal Batalkan Verifikasi (hanya admin) -->
+    @if (auth()->user()->role === 'admin')
+        <div id="batal-verifikasi" class="modal fade" tabindex="-1" role="dialog"
+            aria-labelledby="batalVerifikasiLabel" aria-hidden="true" data-bs-backdrop="static"
+            data-bs-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header justify-content-center">
+                        <h5 class="modal-title text-warning" id="batalVerifikasiLabel">
+                            Batalkan Verifikasi
+                        </h5>
+                    </div>
+                    <div class="modal-body text-center">
+                        <i class="ri-error-warning-line text-warning" style="font-size: 60px;"></i>
+
+                        <h5 class="mt-2">Batalkan verifikasi warga ini?</h5>
+
+                        <p class="text-muted mb-0">
+                            Status <strong>{{ $alternatif->name }}</strong> akan kembali menjadi Pending.
+                        </p>
+
+                        <p class="text-danger small mt-2 mb-0">
+                            Warga ini tidak lagi ikut perhitungan SAW sampai diverifikasi ulang.
+                        </p>
+                    </div>
+                    <div class="modal-footer justify-content-center gap-3">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
+                        <form action="{{ route('penilaian.batalVerifikasi', $alternatif->id) }}" method="POST"
+                            style="display: inline;">
+                            @csrf
+                            <button type="submit" class="btn btn-warning">Ya, Batalkan</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 
     <!-- Modal Delete -->
     <div id="delete" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deleteLabel"

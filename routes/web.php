@@ -48,9 +48,12 @@ Route::middleware(['auth'])->group(function () {
         Route::post('management-akun-store', [ManagementAkunController::class, 'store'])->name('management-akun.store');
         Route::put('management-akun-update/{id}', [ManagementAkunController::class, 'update'])->name('management-akun.update');
         Route::delete('management-akun-destroy/{id}', [ManagementAkunController::class, 'destroy'])->name('management-akun.destroy');
+        Route::post('Verifikasi_Berkas-{id}', [PenilaianController::class, 'verifikasi'])->name('penilaian.verifikasi');
+        Route::post('Batal_Verifikasi-{id}', [PenilaianController::class, 'batalVerifikasi'])->name('penilaian.batalVerifikasi');
     });
     Route::middleware(['role:verifikator'])->group(function () {
         Route::get('verifikator-dashboard', [VerifikatorDashboardController::class, 'dashboard'])->name('verifikator-dashboard');
+
     });
 
     Route::middleware(['role:admin,verifikator'])->group(function () {
@@ -62,6 +65,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('Unggah_Berkas-{id}', [PenilaianController::class, 'index'])->name('penilaian.index');
         Route::post('Unggah_Berkas/{id}', [PenilaianController::class, 'store'])->name('penilaian.store');
         Route::delete('Unggah_Berkas-{id}', [PenilaianController::class, 'destroy'])->name('penilaian.destroy');
+        Route::post('Verifikasi_Berkas-{id}', [PenilaianController::class, 'verifikasi'])->name('penilaian.verifikasi');
     });
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');

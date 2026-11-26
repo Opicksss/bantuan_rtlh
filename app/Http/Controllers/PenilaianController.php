@@ -6,6 +6,7 @@ use App\Models\Alternatif;
 use App\Models\Kriteria;
 use App\Models\Penilaian;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
@@ -23,7 +24,10 @@ class PenilaianController extends Controller
 
         $alternatif = Alternatif::findOrFail($id);
 
-        return view('alternatif.penilaian', compact('penilaian', 'alternatif', 'kriteria'));
+        // Dipakai view untuk menentukan apakah tombol Verifikasi boleh diklik
+        $lengkap = $this->penilaianLengkap($alternatif->id);
+
+        return view('alternatif.penilaian', compact('penilaian', 'alternatif', 'kriteria', 'lengkap'));
     }
 
 
@@ -114,8 +118,9 @@ class PenilaianController extends Controller
                     );
                 }
 
+                // Setiap unggah / update harus diverifikasi (ulang) oleh admin
                 Alternatif::whereKey($id)->update([
-                    'status' => 'Terverifikasi',
+                    'status' => 'Pending',
                 ]);
             });
 
@@ -125,7 +130,7 @@ class PenilaianController extends Controller
 
             return redirect()
                 ->back()
-                ->with('success', $modeUpdate ? 'Penilaian berhasil diperbarui.' : 'Penilaian berhasil disimpan.');
+                ->with('success', ($modeUpdate ? 'Penilaian berhasil diperbarui.' : 'Penilaian berhasil disimpan.') . ' Menunggu verifikasi admin.');
         } catch (\Throwable $e) {
             foreach ($fileBaru as $pathBaru) {
                 Storage::disk('public')->delete($pathBaru);
@@ -137,6 +142,50 @@ class PenilaianController extends Controller
         }
     }
 
+
+    /**
+     * Verifikasi warga: hanya admin, dan hanya jika penilaian + berkas sudah lengkap.
+     */
+    public function verifikasi($id)
+    {
+        abort_unless(Auth::user()?->role === 'admin', 403, 'Hanya admin yang dapat memverifikasi.');
+
+        $alternatif = Alternatif::findOrFail($id);
+
+        if ($alternatif->status === 'Terverifikasi') {
+            return redirect()->back()->with('error', 'Warga ini sudah terverifikasi.');
+        }
+
+        if (!$this->penilaianLengkap($alternatif->id)) {
+            return redirect()->back()->with('error', 'Penilaian dan berkas belum lengkap, belum bisa diverifikasi.');
+        }
+
+        Alternatif::whereKey($alternatif->id)->update([
+            'status' => 'Terverifikasi',
+        ]);
+
+        return redirect()->back()->with('success', 'Warga ' . $alternatif->name . ' berhasil diverifikasi.');
+    }
+
+    /**
+     * Batalkan verifikasi: hanya admin. Status kembali ke Pending.
+     */
+    public function batalVerifikasi($id)
+    {
+        abort_unless(Auth::user()?->role === 'admin', 403, 'Hanya admin yang dapat membatalkan verifikasi.');
+
+        $alternatif = Alternatif::findOrFail($id);
+
+        if ($alternatif->status !== 'Terverifikasi') {
+            return redirect()->back()->with('error', 'Warga ini belum terverifikasi.');
+        }
+
+        Alternatif::whereKey($alternatif->id)->update([
+            'status' => 'Pending',
+        ]);
+
+        return redirect()->back()->with('success', 'Verifikasi warga ' . $alternatif->name . ' dibatalkan. Status kembali Pending.');
+    }
 
     public function destroy($id)
     {
@@ -162,5 +211,23 @@ class PenilaianController extends Controller
 
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus penilaian. Silakan coba lagi.');
         }
+    }
+
+    /**
+     * Lengkap = semua kriteria sudah dinilai DAN setiap penilaian punya berkas bukti.
+     */
+    private function penilaianLengkap($id): bool
+    {
+        $kriteriaIds = Kriteria::pluck('id');
+
+        if ($kriteriaIds->isEmpty()) {
+            return false;
+        }
+
+        $penilaian = Penilaian::where('alternatif_id', $id)->get()->keyBy('kriteria_id');
+
+        return $kriteriaIds->every(
+            fn ($kid) => $penilaian->has($kid) && !empty($penilaian->get($kid)->bukti)
+        );
     }
 }
