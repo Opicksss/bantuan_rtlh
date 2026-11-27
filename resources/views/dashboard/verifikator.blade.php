@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('title')
-    Dashboard Verifikator
+    Dashboard Survey
 @endsection
 
 @section('content')
@@ -56,7 +56,7 @@
 
             <div class="row mb-3">
                 <div class="col-12">
-                    <h4 class="mb-1">Dashboard Verifikator</h4>
+                    <h4 class="mb-1">Dashboard Survey</h4>
                     <p class="text-muted mb-0">
                         Input nilai warga untuk tahun {{ $tahunIni }}.
                     </p>
