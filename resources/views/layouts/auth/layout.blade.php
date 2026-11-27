@@ -45,7 +45,7 @@
                         <div class="w-100">
                             <div class="d-flex flex-column h-100 py-0 py-xl-3">
                                 <div class="text-center mb-4">
-                                    <a href="" class="">
+                                    <a href="{{ route('home') }}" class="">
                                         <img src="img/logo.png" alt="" height="50"
                                             class="auth-logo logo-dark mx-auto">
                                         <img src="img/logo.png" alt="" height="50"

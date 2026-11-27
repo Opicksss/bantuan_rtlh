@@ -14,11 +14,11 @@ class AlternatifSeeder extends Seeder
             'A1'  => 'Suhaini',
             'A2'  => 'Suratun',
             'A3'  => 'Suyono',
-            'A4'  => 'Hariani',
+            'A4'  => 'Rukmaniyah',
             'A5'  => 'Santoso',
             'A6'  => 'Miatun',
             'A7'  => 'Samsuri',
-            'A8'  => 'Rukmaniyah',
+            'A8'  => 'Hariani',
             'A9'  => 'Rukaiyah',
             'A10' => 'Slamet',
         ];
