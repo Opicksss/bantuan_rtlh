@@ -26,18 +26,18 @@
                                     {{-- Tombol verifikasi: hanya admin, SELALU tampil (berubah sesuai status) --}}
                                     @if (auth()->user()->role === 'admin')
                                         @if ($alternatif->status === 'Terverifikasi')
-                                            <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                            <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
                                                 data-bs-target="#batal-verifikasi">
                                                 Batalkan Verifikasi
                                             </button>
                                         @elseif ($lengkap)
-                                            <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
                                                 data-bs-target="#verifikasi">
                                                 Verifikasi
                                             </button>
                                         @else
                                             <span title="Penilaian dan berkas belum lengkap">
-                                                <button type="button" class="btn btn-success" disabled
+                                                <button type="button" class="btn btn-outline-success" disabled
                                                     style="pointer-events: none;">Verifikasi</button>
                                             </span>
                                         @endif
